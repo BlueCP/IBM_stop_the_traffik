@@ -1,0 +1,37 @@
+<!-- include A-Frame obviously -->
+<script src="https://aframe.io/releases/0.6.0/aframe.min.js"></script>
+<!-- include ar.js for A-Frame -->
+<script src="https://jeromeetienne.github.io/AR.js/aframe/build/aframe-ar.js"></script>
+<body style='margin : 0px; overflow: hidden;'>
+  <a-scene embedded arjs>
+    <!-- create your content here. just a box for now -->
+    <!-- define markers which will control the visibility of the content -->
+
+    <a-marker preset='hiro'>
+      <a-box position='0 0.5 0' depth="2" height="0.25" width="3" material='src: url(/img/route.jpg);' visible="false"></a-box>
+    </a-marker>
+                                                
+    <a-marker preset='kanji'>
+      <a-box position='0 0.5 0' depth="2" height="0.25" width="3" material='src: url(/img/heat.jpg);' visible="false"></a-box>
+    </a-marker>
+
+    <!-- Define a camera which will move according to the marker position -->
+    <a-camera-static></a-camera-static>
+  </a-scene>
+
+  <script>
+    document.querySelector('a-marker[preset="hiro"]').addEventListener('markerFound', function() {
+      document.querySelector('a-marker[preset="hiro"] a-box').setAttribute('visible', 'true');
+    });
+    document.querySelector('a-marker[preset="hiro"]').addEventListener('markerLost', function() {
+      document.querySelector('a-marker[preset="hiro"] a-box').setAttribute('visible', 'false');
+    });
+
+    document.querySelector('a-marker[preset="kanji"]').addEventListener('markerFound', function() {
+      document.querySelector('a-marker[preset="kanji"] a-box').setAttribute('visible', 'true');
+    });
+    document.querySelector('a-marker[preset="kanji"]').addEventListener('markerLost', function() {
+      document.querySelector('a-marker[preset="kanji"] a-box').setAttribute('visible', 'false');
+    });
+  </script>
+</body>
