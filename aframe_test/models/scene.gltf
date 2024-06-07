@@ -1,0 +1,650 @@
+{
+  "asset": {
+    "generator": "Babylon.js v7.7.0",
+    "version": "2.0"
+  },
+  "extensionsUsed": [
+    "KHR_texture_transform"
+  ],
+  "extensions": {},
+  "buffers": [
+    {
+      "byteLength": 64072,
+      "uri": "scene.bin"
+    }
+  ],
+  "nodes": [
+    {
+      "name": "sphere1",
+      "rotation": [
+        -0.052475885479624354,
+        0,
+        0.9986221984382779,
+        0
+      ],
+      "mesh": 0,
+      "scale": [
+        1.0000000274652994,
+        -1,
+        1.0000000274652994
+      ]
+    },
+    {
+      "name": "teleportationTarget",
+      "mesh": 1,
+      "rotation": [
+        0,
+        0,
+        1,
+        0
+      ],
+      "scale": [
+        1,
+        -1,
+        1
+      ],
+      "children": [
+        2
+      ]
+    },
+    {
+      "name": "torusTeleportation",
+      "translation": [
+        0,
+        0.1734380061818358,
+        0
+      ],
+      "mesh": 2,
+      "children": [
+        3
+      ]
+    },
+    {
+      "name": "rotationCone",
+      "translation": [
+        0,
+        0,
+        0.6
+      ],
+      "scale": [
+        0.5,
+        0.12,
+        0.2
+      ],
+      "rotation": [
+        0.7071067811865475,
+        0,
+        0,
+        0.7071067811865476
+      ],
+      "mesh": 3
+    },
+    {
+      "name": "light1",
+      "rotation": [
+        0,
+        0,
+        1,
+        0
+      ],
+      "scale": [
+        1,
+        -1,
+        1
+      ]
+    },
+    {
+      "name": "camera1",
+      "translation": [
+        -6.363452012673771e-16,
+        5,
+        10.392305374145508
+      ],
+      "rotation": [
+        -2.957295106537616e-17,
+        0.25881904618047663,
+        0.9659258222660823,
+        7.924048235813058e-18
+      ],
+      "camera": 0,
+      "scale": [
+        1,
+        -0.9999999865388264,
+        0.9999999865388264
+      ]
+    },
+    {
+      "name": "webxr",
+      "rotation": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "camera": 1,
+      "scale": [
+        1,
+        -1,
+        1
+      ]
+    },
+    {
+      "name": "XR-RigCamera: 0",
+      "rotation": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "camera": 2,
+      "scale": [
+        1,
+        -1,
+        1
+      ]
+    }
+  ],
+  "meshes": [
+    {
+      "primitives": [
+        {
+          "attributes": {
+            "POSITION": 0,
+            "NORMAL": 1,
+            "TEXCOORD_0": 2
+          },
+          "indices": 3,
+          "material": 0
+        }
+      ]
+    },
+    {
+      "primitives": [
+        {
+          "attributes": {
+            "POSITION": 4,
+            "NORMAL": 5,
+            "TEXCOORD_0": 6
+          },
+          "indices": 7,
+          "material": 1
+        }
+      ]
+    },
+    {
+      "primitives": [
+        {
+          "attributes": {
+            "POSITION": 8,
+            "NORMAL": 9
+          },
+          "indices": 10,
+          "material": 2
+        }
+      ]
+    },
+    {
+      "primitives": [
+        {
+          "attributes": {
+            "POSITION": 13,
+            "NORMAL": 14
+          },
+          "indices": 15,
+          "material": 2
+        }
+      ]
+    }
+  ],
+  "scenes": [
+    {
+      "nodes": [
+        0,
+        1,
+        4,
+        5,
+        6,
+        7
+      ]
+    }
+  ],
+  "scene": 0,
+  "cameras": [
+    {
+      "type": "perspective",
+      "name": "camera1",
+      "perspective": {
+        "aspectRatio": 2.1041095890410957,
+        "yfov": 0.8,
+        "znear": 1,
+        "zfar": 10000
+      }
+    },
+    {
+      "type": "perspective",
+      "name": "webxr",
+      "perspective": {
+        "aspectRatio": 2.1041095890410957,
+        "yfov": 0.8,
+        "znear": 0.1,
+        "zfar": 10000
+      }
+    },
+    {
+      "type": "perspective",
+      "name": "XR-RigCamera: 0",
+      "perspective": {
+        "aspectRatio": 2.1041095890410957,
+        "yfov": 0.8,
+        "znear": 0.1,
+        "zfar": 10000
+      }
+    }
+  ],
+  "bufferViews": [
+    {
+      "buffer": 0,
+      "byteLength": 8436,
+      "name": "position - sphere1",
+      "byteStride": 12
+    },
+    {
+      "buffer": 0,
+      "byteLength": 8436,
+      "byteOffset": 8436,
+      "name": "normal - sphere1",
+      "byteStride": 12
+    },
+    {
+      "buffer": 0,
+      "byteLength": 5624,
+      "byteOffset": 16872,
+      "name": "uv - sphere1",
+      "byteStride": 8
+    },
+    {
+      "buffer": 0,
+      "byteLength": 15552,
+      "byteOffset": 22496,
+      "name": "Indices - sphere1"
+    },
+    {
+      "buffer": 0,
+      "byteLength": 108,
+      "byteOffset": 38048,
+      "name": "position - teleportationTarget",
+      "byteStride": 12
+    },
+    {
+      "buffer": 0,
+      "byteLength": 108,
+      "byteOffset": 38156,
+      "name": "normal - teleportationTarget",
+      "byteStride": 12
+    },
+    {
+      "buffer": 0,
+      "byteLength": 72,
+      "byteOffset": 38264,
+      "name": "uv - teleportationTarget",
+      "byteStride": 8
+    },
+    {
+      "buffer": 0,
+      "byteLength": 96,
+      "byteOffset": 38336,
+      "name": "Indices - teleportationTarget"
+    },
+    {
+      "buffer": 0,
+      "byteLength": 5292,
+      "byteOffset": 38432,
+      "name": "position - torusTeleportation",
+      "byteStride": 12
+    },
+    {
+      "buffer": 0,
+      "byteLength": 5292,
+      "byteOffset": 43724,
+      "name": "normal - torusTeleportation",
+      "byteStride": 12
+    },
+    {
+      "buffer": 0,
+      "byteLength": 3528,
+      "byteOffset": 49016,
+      "name": "uv - torusTeleportation",
+      "byteStride": 8
+    },
+    {
+      "buffer": 0,
+      "byteLength": 10584,
+      "byteOffset": 52544,
+      "name": "Indices - torusTeleportation"
+    },
+    {
+      "buffer": 0,
+      "byteLength": 12,
+      "byteOffset": 63128,
+      "name": "animationInnerCircle  keyframe data view"
+    },
+    {
+      "buffer": 0,
+      "byteLength": 36,
+      "byteOffset": 63140,
+      "name": "animationInnerCircle  data view"
+    },
+    {
+      "buffer": 0,
+      "byteLength": 264,
+      "byteOffset": 63176,
+      "name": "position - rotationCone",
+      "byteStride": 12
+    },
+    {
+      "buffer": 0,
+      "byteLength": 264,
+      "byteOffset": 63440,
+      "name": "normal - rotationCone",
+      "byteStride": 12
+    },
+    {
+      "buffer": 0,
+      "byteLength": 176,
+      "byteOffset": 63704,
+      "name": "uv - rotationCone",
+      "byteStride": 8
+    },
+    {
+      "buffer": 0,
+      "byteLength": 192,
+      "byteOffset": 63880,
+      "name": "Indices - rotationCone"
+    }
+  ],
+  "accessors": [
+    {
+      "name": "position - sphere1",
+      "bufferView": 0,
+      "componentType": 5126,
+      "count": 703,
+      "type": "VEC3",
+      "min": [
+        -1,
+        -1,
+        -1
+      ],
+      "max": [
+        1,
+        1,
+        1
+      ],
+      "byteOffset": 0
+    },
+    {
+      "name": "normal - sphere1",
+      "bufferView": 1,
+      "componentType": 5126,
+      "count": 703,
+      "type": "VEC3",
+      "byteOffset": 0
+    },
+    {
+      "name": "uv - sphere1",
+      "bufferView": 2,
+      "componentType": 5126,
+      "count": 703,
+      "type": "VEC2",
+      "byteOffset": 0
+    },
+    {
+      "name": "indices - sphere1",
+      "bufferView": 3,
+      "componentType": 5125,
+      "count": 3888,
+      "type": "SCALAR",
+      "byteOffset": 0
+    },
+    {
+      "name": "position - teleportationTarget",
+      "bufferView": 4,
+      "componentType": 5126,
+      "count": 9,
+      "type": "VEC3",
+      "min": [
+        -1,
+        0,
+        -1
+      ],
+      "max": [
+        1,
+        0,
+        1
+      ],
+      "byteOffset": 0
+    },
+    {
+      "name": "normal - teleportationTarget",
+      "bufferView": 5,
+      "componentType": 5126,
+      "count": 9,
+      "type": "VEC3",
+      "byteOffset": 0
+    },
+    {
+      "name": "uv - teleportationTarget",
+      "bufferView": 6,
+      "componentType": 5126,
+      "count": 9,
+      "type": "VEC2",
+      "byteOffset": 0
+    },
+    {
+      "name": "indices - teleportationTarget",
+      "bufferView": 7,
+      "componentType": 5125,
+      "count": 24,
+      "type": "SCALAR",
+      "byteOffset": 0
+    },
+    {
+      "name": "position - torusTeleportation",
+      "bufferView": 8,
+      "componentType": 5126,
+      "count": 441,
+      "type": "VEC3",
+      "min": [
+        -0.425,
+        -0.05,
+        -0.425
+      ],
+      "max": [
+        0.425,
+        0.05,
+        0.425
+      ],
+      "byteOffset": 0
+    },
+    {
+      "name": "normal - torusTeleportation",
+      "bufferView": 9,
+      "componentType": 5126,
+      "count": 441,
+      "type": "VEC3",
+      "byteOffset": 0
+    },
+    {
+      "name": "indices - torusTeleportation",
+      "bufferView": 11,
+      "componentType": 5125,
+      "count": 2646,
+      "type": "SCALAR",
+      "byteOffset": 0
+    },
+    {
+      "name": "animationInnerCircle  keyframes",
+      "bufferView": 12,
+      "componentType": 5126,
+      "count": 3,
+      "type": "SCALAR",
+      "min": [
+        0
+      ],
+      "max": [
+        2
+      ]
+    },
+    {
+      "name": "animationInnerCircle  data",
+      "bufferView": 13,
+      "componentType": 5126,
+      "count": 3,
+      "type": "VEC3"
+    },
+    {
+      "name": "position - rotationCone",
+      "bufferView": 14,
+      "componentType": 5126,
+      "count": 22,
+      "type": "VEC3",
+      "min": [
+        -0.5,
+        -1,
+        -0.5
+      ],
+      "max": [
+        0.5,
+        1,
+        0.5
+      ],
+      "byteOffset": 0
+    },
+    {
+      "name": "normal - rotationCone",
+      "bufferView": 15,
+      "componentType": 5126,
+      "count": 22,
+      "type": "VEC3",
+      "byteOffset": 0
+    },
+    {
+      "name": "indices - rotationCone",
+      "bufferView": 17,
+      "componentType": 5125,
+      "count": 48,
+      "type": "SCALAR",
+      "byteOffset": 0
+    }
+  ],
+  "animations": [
+    {
+      "name": "runtime animations",
+      "channels": [
+        {
+          "sampler": 0,
+          "target": {
+            "node": 2,
+            "path": "translation"
+          }
+        }
+      ],
+      "samplers": [
+        {
+          "interpolation": "LINEAR",
+          "input": 11,
+          "output": 12
+        }
+      ]
+    }
+  ],
+  "materials": [
+    {
+      "name": "sphereMaterial",
+      "pbrMetallicRoughness": {
+        "baseColorFactor": [
+          0.5,
+          0.5,
+          0.5,
+          1
+        ],
+        "metallicFactor": 0,
+        "roughnessFactor": 0.3288090062081349,
+        "baseColorTexture": {
+          "index": 1,
+          "extensions": {
+            "KHR_texture_transform": {
+              "scale": [
+                1,
+                -1
+              ]
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "teleportationPlaneMaterial",
+      "pbrMetallicRoughness": {
+        "baseColorFactor": [
+          0.5,
+          0.5,
+          0.5,
+          1
+        ],
+        "metallicFactor": 0,
+        "roughnessFactor": 0.3288090062081349,
+        "baseColorTexture": {
+          "index": 0
+        }
+      },
+      "alphaMode": "MASK",
+      "alphaCutoff": 0.4
+    },
+    {
+      "name": "torusConsMat",
+      "alphaMode": "BLEND",
+      "pbrMetallicRoughness": {
+        "baseColorFactor": [
+          0.03537013885184802,
+          0.03537013885184802,
+          0.5,
+          0.9
+        ],
+        "metallicFactor": 0,
+        "roughnessFactor": 0.3288090062081349
+      }
+    }
+  ],
+  "textures": [
+    {
+      "source": 0,
+      "sampler": 1
+    },
+    {
+      "source": 1,
+      "sampler": 0
+    }
+  ],
+  "samplers": [
+    {
+      "magFilter": 9729,
+      "minFilter": 9987
+    },
+    {
+      "wrapS": 33071,
+      "wrapT": 33071,
+      "magFilter": 9729,
+      "minFilter": 9987
+    }
+  ],
+  "images": [
+    {
+      "name": "teleportationPlaneDynamicTexture",
+      "uri": "teleportationPlaneDynamicTexture.png"
+    },
+    {
+      "name": "https://www.babylonjs-playground.com/textures/earth.jpg",
+      "uri": "https:__www.babylonjs-playground.com_textures_earth.jpg.png"
+    }
+  ]
+}
