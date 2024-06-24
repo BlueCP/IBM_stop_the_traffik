@@ -31,6 +31,12 @@
  * and handle rendering on every frame.
  */
 class App {
+
+  constructor() {
+    this.glbModel = null;
+    this.mixer = null;
+  }
+
   /**
    * Run when the Start AR button is pressed.
    */
@@ -45,12 +51,29 @@ class App {
       // Create the canvas that will contain our camera's background and our virtual scene.
       this.createXRCanvas();
 
+      // Load the model
+      await this.loadGLTFModel('../assets/AR-Experience.glb');
+
       // With everything set up, start the app.
       await this.onSessionStarted();
-    } catch(e) {
+    } catch (e) {
       console.log(e);
       onNoXRDevice();
     }
+  }
+
+  /**
+   * Load a GLTF model
+   */
+  loadGLTFModel = async (path) => {
+    const loader = new THREE.GLTFLoader();
+    return new Promise((resolve, reject) => {
+      loader.load(path, (gltf) => {
+        this.glbModel = gltf.scene;
+        this.animations = gltf.animations;
+        resolve();
+      }, undefined, reject);
+    });
   }
 
   /**
@@ -59,7 +82,7 @@ class App {
   createXRCanvas() {
     this.canvas = document.createElement("canvas");
     document.body.appendChild(this.canvas);
-    this.gl = this.canvas.getContext("webgl", {xrCompatible: true});
+    this.gl = this.canvas.getContext("webgl", { xrCompatible: true });
 
     this.xrSession.updateRenderState({
       baseLayer: new XRWebGLLayer(this.xrSession, this.gl)
@@ -92,6 +115,39 @@ class App {
     this.xrSession.addEventListener("select", this.onSelect);
   }
 
+  /**
+   * Add a model when the screen is tapped.
+   */
+
+  onSelect = () => {
+    if (this.glbModel) {
+      const clone = this.glbModel.clone();
+      clone.position.copy(this.reticle.position);
+      this.scene.add(clone);
+
+      // Create an AnimationMixer and play the animation
+      this.mixer = new THREE.AnimationMixer(clone);
+      this.playAnimation('ArrowAction');
+    } else {
+      console.log('Model not loaded yet');
+    }
+  }
+
+  /**
+   * Play a specified animation from the loaded GLB model
+   */
+  playAnimation = (animationName) => {
+    if (this.mixer && this.animations) {
+      const clip = this.animations.find(clip => clip.name === animationName);
+      if (clip) {
+        const action = this.mixer.clipAction(clip);
+        action.reset().play();
+      } else {
+        console.log(`Animation ${animationName} not found`);
+      }
+    }
+  }
+
   /** Place a sunflower when the screen is tapped. */
   // onSelect = () => {
   //   if (window.sunflower) {
@@ -104,36 +160,36 @@ class App {
   //   }
   // }
 
-  scene_insert(model, x,y,z){
-    if(model){
-      const clone = model.clone();
-      const offset = new THREE.Vector3(x,y,z);
-      clone.position.copy(this.reticle.position).add(offset);
-      this.scene.add(clone);
-      console.log("model inserted");
-    }
-    else{
-      console.log('oink');
-    }
-  }
+  //scene_insert(model, x,y,z){
+  //  if(model){
+  //    const clone = model.clone();
+  //    const offset = new THREE.Vector3(x,y,z);
+  //    clone.position.copy(this.reticle.position).add(offset);
+  //    this.scene.add(clone);
+  //    console.log("model inserted");
+  //  }
+  //  else{
+  //    console.log('oink');
+  //  }
+  //}
 
-  onSelect = () => {
+  //onSelect = () => {
     // this.scene_insert(window.beep, 0.0, 0.0, 0.0);
-    this.scene_insert(window.globe,-1.0, 1.0, 0.0);
-    this.scene_insert(window.sphere, 1.0, 1.25, 0.0);
-    this.scene_insert(window.msg1, 0.0, 1.4, 0.0);
+  //  this.scene_insert(window.globe,-1.0, 1.0, 0.0);
+  //  this.scene_insert(window.sphere, 1.0, 1.25, 0.0);
+  //  this.scene_insert(window.msg1, 0.0, 1.4, 0.0);
     // this.scene_insert(window.textMesh, (-1.0, 1.0, -1.0));
 
 
-    window.beep.scale.set(0.1,0.1,0.1);
-    window.beep.position.copy(this.reticle.postion).add(new THREE.Vector3(0,0,-2));
-    this.scene.add(window.beep);
+  //  window.beep.scale.set(0.1,0.1,0.1);
+  //  window.beep.position.copy(this.reticle.postion).add(new THREE.Vector3(0,0,-2));
+  //  this.scene.add(window.beep);
 
-    this.scene.traverse(function(node){
-      console.log('Name: ', node.name, ' Type: ', node.type);
-      console.log('no relation');
-    });
-  }
+  //  this.scene.traverse(function(node){
+  //    console.log('Name: ', node.name, ' Type: ', node.type);
+  //    console.log('no relation');
+  //  });
+  //}
 
 
 
@@ -197,12 +253,18 @@ class App {
         this.reticle.updateMatrixWorld(true);
       }
 
-      this.scene.traverse(function (child){
-        if(child.name == 'Cube'){
-          child.rotation.y += 0.01;
-        }
+      //this.scene.traverse(function (child){
+      //  if(child.name == 'Cube'){
+      //    child.rotation.y += 0.01;
+      //  }
 
-      });
+      //});
+
+      // Update the animation mixer if it exists
+      if (this.mixer) {
+        const delta = this.clock.getDelta();
+        this.mixer.update(delta);
+      }
 
       // Render the scene with THREE.WebGLRenderer.
       this.renderer.render(this.scene, this.camera)
@@ -236,6 +298,9 @@ class App {
     // to handle the matrices independently.
     this.camera = new THREE.PerspectiveCamera();
     this.camera.matrixAutoUpdate = false;
+
+    // Initialise clock for animation updates
+    this.clock = new THREE.Clock();
   }
 };
 
