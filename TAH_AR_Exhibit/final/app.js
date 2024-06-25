@@ -20,9 +20,11 @@
 (async function() {
   const isArSessionSupported = navigator.xr && navigator.xr.isSessionSupported && await navigator.xr.isSessionSupported("immersive-ar");
   if (isArSessionSupported) {
-    document.getElementById("enter-ar").addEventListener("click", window.app.activateXR)
+    document.getElementById("startButton_ngo").addEventListener("click", window.app.activateXR);
+    console.log("yahoo");
   } else {
     onNoXRDevice();
+    console.log("monkey wasn't funky");
   }
 })();
 
@@ -52,6 +54,7 @@ class App {
 
       // Create the canvas that will contain our camera's background and our virtual scene.
       this.createXRCanvas();
+      document.getElementById('landingPage').style.display = 'none';
 
       // Load the model
       await this.loadGLTFModel('../assets/AR-Experience.glb');
@@ -132,78 +135,12 @@ class App {
     return globe;
   }
 
-  createGlobeHeatmap() {
-    // Gen random data
-    const N = 100; // 300
-    const gData = [...Array(N).keys()].map(() => ({
-      lat: (Math.random() - 0.5) * 160,
-      lng: (Math.random() - 0.5) * 360,
-      weight: Math.random()
-    }));
-
-    const globe = new ThreeGlobe()
-      .globeImageUrl('https://unpkg.com/three-globe@2.31.1/example/img/earth-night.jpg')
-
-      .heatmapsData([gData])
-      .heatmapPointLat('lat')
-      .heatmapPointLng('lng')
-      .heatmapPointWeight('weight')
-      .heatmapTopAltitude(0.3) // 0.7
-      .heatmapsTransitionDuration(1000); // 3000
-
-    globe.showAtmosphere(false);
-    globe.scale.set(0.001,0.001,0.001);
-    globe.position.set(0.0, 0.5, 0.0);
-    const factor = 1;
-    globe.scale.x /= factor;
-    globe.scale.y /= factor;
-    globe.scale.z /= factor;
-    globe.globeMaterial.wireframe = true;
-    return globe;
-
-    // fetch('./ne_110m_admin_0_countries.geojson').then(res => res.json()).then(countries => {
-    //   const globe = new ThreeGlobe()
-    //     .globeImageUrl('https://unpkg.com/three-globe@2.31.1/example/img/earth-night.jpg')
-
-    //     .heatmapsData([gData])
-    //     .heatmapPointLat('lat')
-    //     .heatmapPointLng('lng')
-    //     .heatmapPointWeight('weight')
-    //     .heatmapTopAltitude(0.3) // 0.7
-    //     .heatmapsTransitionDuration(1000) // 3000
-
-    //     .hexPolygonsData(countries.features)
-    //     .hexPolygonResolution(3)
-    //     .hexPolygonMargin(0.3)
-    //     .hexPolygonUseDots(true)
-    //     .hexPolygonColor(() => `#${Math.round(Math.random() * Math.pow(2, 24)).toString(16).padStart(6, '0')}`);
-
-    //   globe.showAtmosphere(false);
-    //   globe.scale.set(0.001,0.001,0.001);
-    //   globe.position.set(0.0, 0.5, 0.0);
-    //   const factor = 1;
-    //   globe.scale.x /= factor;
-    //   globe.scale.y /= factor;
-    //   globe.scale.z /= factor;
-    //   globe.globeMaterial.wireframe = true;
-    //   return globe;
-    // })
-  }
-
   scene_insert(model, x, y, z) {
     if (model) {
-      // const clone = model.clone();
-      // console.log('original: ', model)
-      // console.log('clone: ', clone)
-      // const offset = new THREE.Vector3(x, y, z);
-      // clone.position.copy(this.reticle.position).add(offset);
-      // console.log('original image: ', model.globeImageUrl())
-      // console.log('clone image: ', clone.globeImage(Url())
-      // this.scene.add(clone);
-      model.position.copy(this.reticle.position).add(new THREE.Vector3(x, y, z))
-      model.scale.set(0.0001, 0.0001, 0.0001)
-      console.log('image url: ', model.globeImageUrl())
-      this.scene.add(model)
+      const clone = model.clone();
+      const offset = new THREE.Vector3(x, y, z);
+      clone.position.copy(this.reticle.position).add(offset);
+      this.scene.add(clone);
       console.log("model inserted");
     } else {
       console.log('Model is undefined');
@@ -213,7 +150,7 @@ class App {
    * Add a model when the screen is tapped.
    */
   onSelect = () => {
-    window.bow = this.createGlobeHeatmap();
+    window.bow = this.createGlobe();
     if (window.bow) {
       console.log('material: ', window.bow.globeMaterial());
       console.log('scale: ', window.bow.scale);
@@ -224,33 +161,35 @@ class App {
       console.log('window.bow is not defined');
     }
     // this.scene_insert(this.objects[this.count], 0.0, 1.8, 0.0);
+    this.scene_insert(window.welcome, 0.0, 1.5, 0.0);
+
     // this.scene_insert(window.welcome, 0.0, 1.4, 0.0);
     // this.scene_insert(window.heatmap, 0.25, 1.4, 0.5);
     // this.scene_insert(window.routemap, 0.5, 1.4, 1.0);
     // this.scene_insert(window.example, 0.75, 1.4, 1.5);
     // this.scene_insert(window.stats, 1.0, 1.4, 2.0);
 
-    // if (this.glbModel) {
-    //   const clone = this.glbModel.clone();
-    //   clone.position.copy(this.reticle.position);
-    //   clone.scale.set(clone.scale.x / 5, clone.scale.y / 5, clone.scale.z / 5);
-    //   this.scene.add(clone);
+    if (this.glbModel) {
+      const clone = this.glbModel.clone();
+      clone.position.copy(this.reticle.position);
+      clone.scale.set(clone.scale.x / 2, clone.scale.y / 2, clone.scale.z / 2);
+      this.scene.add(clone);
 
-    //   // Create an AnimationMixer and play the animation
-    //   this.mixer = new THREE.AnimationMixer(clone);
-    //   this.playAnimation('ArrowAction');
-    // } else {
-    //   console.log('Model not loaded yet');
-    // }
+      // Create an AnimationMixer and play the animation
+      this.mixer = new THREE.AnimationMixer(clone);
+      this.playAnimation('ArrowAction');
+    } else {
+      console.log('Model not loaded yet');
+    }
 
     this.scene.traverse(function (node) {
       console.log('Name: ', node.name, ' Type: ', node.type);
     });
 
     // Check if the globe's material is transparent
-    // if (window.bow) {
-    //   console.log(window.bow.showAtmosphere()); // Should be false
-    // }
+    if (window.bow) {
+      console.log(window.bow.showAtmosphere()); // Should be false
+    }
 
     // Check the scene background
     // console.log(this.scene.background); // Should be null for transparency
@@ -349,6 +288,9 @@ class App {
     this.scene = DemoUtils.createLitScene();
     this.reticle = new Reticle();
     this.scene.add(this.reticle);
+
+    // const light = new THREE.AmbientLight(0xffffff, 100);
+    // this.scene.add(light);
 
     // We'll update the camera matrices directly from API, so
     // disable matrix auto updates so three.js doesn't attempt

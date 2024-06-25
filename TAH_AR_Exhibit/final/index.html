@@ -1,74 +1,138 @@
-<!doctype html>
-<!--
-/*
- * Copyright 2017 Google Inc. All Rights Reserved.
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
--->
+<!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Building an augmented reality application with the WebXR Device API</title>
-    <link rel="stylesheet" href="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.css">
-    <script src="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.js"></script>
+  
+<head>
+  <title>TAH Virtual Exhibit</title>
 
-    <!-- three.js -->
-    <script src="https://unpkg.com/three@0.126.0/build/three.js"></script>
-    <script src="https://unpkg.com/three@0.126.0/examples/js/loaders/GLTFLoader.js"></script>
-    <script src="https://threejs.org/examples/jsm/loaders/FontLoader.js"></script>
-    <script src="https://threejs.org/examples/jsm/geometries/TextGeometry.js"></script>
-    <script src="https://unpkg.com/three-globe@2.31.1/dist/three-globe.min.js"></script>
+  <!-- three.js -->
+  <script src="https://unpkg.com/three@0.126.0/build/three.js"></script>
+  <script src="https://unpkg.com/three@0.126.0/examples/js/loaders/GLTFLoader.js"></script>
+  <script src="https://threejs.org/examples/jsm/loaders/FontLoader.js"></script>
+  <script src="https://threejs.org/examples/jsm/geometries/TextGeometry.js"></script>
+  <script src="https://unpkg.com/three-globe@2.31.1/dist/three-globe.min.js"></script>
 
+  <link rel="stylesheet" type="text/css" href="../shared/app.css" />
+  <script src="../shared/utils.js"></script>
 
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    html, body {
+      height: 100%;
+      width: 100%;
+      overflow: hidden;
+    }
+    body {
+      margin: 0;
+      overflow: hidden;
+    }
+    #landingPage {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100vh;
+      background-color: #000000;
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      flex-direction: column;
+      z-index: 2;
+    }
+    #startButton_ngo, #startButton_comm {
+      padding: 15px 30px;
+      font-size: 20px;
+      color: white;
+      border: none;
+      cursor: pointer;
+      border-radius: 5px;
+      margin: 10px;
+    }
+    #startButton_ngo {
+      background-color: #007BFF;
+    }
+    #startButton_comm {
+      background-color: #ff0000;
+    }
+    #startButton_ngo:hover {
+      background-color: #0056b3;
+    }
+    #startButton_comm:hover {
+      background-color: #cc0000;
+    }
+    /* New CSS for image */
+    #topImage {
+      width: 75px; /* Adjust the width as needed */
+      height: auto;
+      position: absolute;
+      background-color: #ffffff;
+      top: 10px;
+      left: 10px;
+    }
+    .banner-container {
+      position: relative;
+      width: 100%;
+      overflow: hidden;
+    }
+    .banner {
+      width: 100%;
+      height: auto;
+      display: block;
+      object-fit: cover;
+    }
+    .gradient {
+      width: 100%;
+      height: 200px;
+      background: linear-gradient(to bottom, white, black);
+    }
+    h1, h2 {
+      margin: 0;
+    }
+    h1 {
+      text-align: center;
+    }
+    h2 {
+      text-align: center;
+    }
 
-    <link rel="stylesheet" type="text/css" href="../shared/app.css" />
-    <script src="../shared/utils.js"></script>
-  </head>
-  <body>
-    <div id="enter-ar-info" class="mdc-card demo-card">
-      <h2>IBM TAH Virtual Exhibit</h2>
-      <p>
-        Welcome to the IBM
-      </p>
+  </style>
+</head>
 
-      <!-- Starting an immersive WebXR session requires user interaction. Start the WebXR experience with a simple button. -->
-      <a id="enter-ar" class="mdc-button mdc-button--raised mdc-button--accent">
-        Start augmented reality
-      </a>
+<body>
+  <!-- Image at the top of the page -->
+  <!-- Landing Page -->
+  <div id="landingPage">
+    <div class="banner-container">
+      <img src="logo.png" alt="Banner Image" class="banner">
+      <div class="gradient"></div>
     </div>
+    <h1 style="color: #ffffff;">Traffik Analysis Hub</h1>
+    <h2 style="color: #838383;">Virtual Exhibit</h2>
+    <button id="startButton_ngo">NGOs</button>
+    <button id="startButton_comm">Commercial Partners</button>
+  </div>
 
-    <div id="unsupported-info" class="mdc-card demo-card">
-      <h2>Unsupported Browser</h2>
-      <p>
-        Your browser does not support AR features with WebXR. Learn more about these features from the
-        <a href="https://codelabs.developers.google.com/codelabs/ar-with-webxr">Building an augmented reality application with the WebXR Device API</a> Code Lab.
-      </p>
-    </div>
-    <script src="app.js"></script>
-    <div id="stabilization"></div>
-    <script>
-      window.watsonAssistantChatOptions = {
-        integrationID: "c32874b0-61d5-4660-9035-769436c89d55", // The ID of this integration.
-        region: "eu-gb", // The region your integration is hosted in.
-        serviceInstanceID: "96ddcd49-92cc-448e-ad70-c073647a2acf", // The ID of your service instance.
-        onLoad: async (instance) => { await instance.render(); }
-      };
-      setTimeout(function(){
-        const t=document.createElement('script');
-        t.src="https://web-chat.global.assistant.watson.appdomain.cloud/versions/" + (window.watsonAssistantChatOptions.clientVersion || 'latest') + "/WatsonAssistantChatEntry.js";
-        document.head.appendChild(t);
-      });
-    </script>
-  </body>
+  
+  <script src="app.js"></script>
+  <script src="app1.js"></script>
+  <div id="stabilization"></div>
+
+
+  <script>
+    window.watsonAssistantChatOptions = {
+      integrationID: "c32874b0-61d5-4660-9035-769436c89d55", // The ID of this integration.
+      region: "eu-gb", // The region your integration is hosted in.
+      serviceInstanceID: "96ddcd49-92cc-448e-ad70-c073647a2acf", // The ID of your service instance.
+      onLoad: async (instance) => { await instance.render(); }
+    };
+    setTimeout(function(){
+      const t=document.createElement('script');
+      t.src="https://web-chat.global.assistant.watson.appdomain.cloud/versions/" + (window.watsonAssistantChatOptions.clientVersion || 'latest') + "/WatsonAssistantChatEntry.js";
+      document.head.appendChild(t);
+    });
+  </script>
+</body>
 </html>
