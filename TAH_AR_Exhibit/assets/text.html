@@ -62,14 +62,22 @@
       document.getElementById('overlay-text').innerText = text;
     }
 
-    // Example: Changing text after 1 second
+    // Example: Changing text after 5 seconds
     setTimeout(() => {
         updateOverlayText('Traffik Analysis Hub (TAH)', 'The TAH is a not-for-profit organization based in the UK, part of the STOP THE TRAFFIK Group. It is a collaborative platform using technologies developed by IBM to prevent human trafficking by integrating and analyzing data from multiple sectors. The Hub provides a comprehensive source of intelligence on human trafficking and exploitation worldwide.');
+        
+        // Changing text after 5 seconds
+        setTimeout(() => {
+            updateOverlayText('Traffik Analysis Hub (TAH)','The Traffik Analysis Hub aims to create a single, coherent source of intelligence on human trafficking and exploitation worldwide. It seeks to prevent human trafficking by integrating and sharing data across multiple sectors, facilitating greater trust and collaboration. The Hub supports the identification, tracking, and countering of human trafficking by providing actionable insights and fostering joint analysis of large data sets.')
+            
+            // Changing text after 5 seconds
+            setTimeout(() => {
+                updateOverlayText('How the Traffik Analysis Hub (TAH) works','The TAH works by leveraging advanced IBM technologies to collect, analyze, and share data on human trafficking.')
+            }, 5000)
+        }, 5000)
     }, 5000);
 
-    setTimeout(() => {
-        updateOverlayText('Traffik Analysis Hub (TAH)','The Traffik Analysis Hub aims to create a single, coherent source of intelligence on human trafficking and exploitation worldwide. It seeks to prevent human trafficking by integrating and sharing data across multiple sectors, facilitating greater trust and collaboration. The Hub supports the identification, tracking, and countering of human trafficking by providing actionable insights and fostering joint analysis of large data sets.')
-    })
+    
   </script>
 
   <!-- Include your WebXR application script here -->
