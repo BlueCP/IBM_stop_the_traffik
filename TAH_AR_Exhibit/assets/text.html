@@ -51,10 +51,26 @@
 <body>
   <div class="xr-overlay">
     <div class="text-container">
-      <h1>Welcome to the Traffik Analysis Hub Virtual Exhibit</h1>
-      <p>This exhibit is an interactive experience to explore the Traffik Analysis Hub (TAH) Wave your phone around while looking at the floor and tap to start.</p>
+      <h1 id="overlay-title">Welcome to the Traffik Analysis Hub Virtual Exhibit</h1>
+      <p id="overlay-text">This exhibit is an interactive experience to explore the Traffik Analysis Hub (TAH). Wave your phone around while looking at the floor and tap to start.</p>
     </div>
   </div>
+
+  <script>
+    function updateOverlayText(title, text) {
+      document.getElementById('overlay-title').innerText = title;
+      document.getElementById('overlay-text').innerText = text;
+    }
+
+    // Example: Changing text after 1 second
+    setTimeout(() => {
+        updateOverlayText('Traffik Analysis Hub (TAH)', 'The TAH is a not-for-profit organization based in the UK, part of the STOP THE TRAFFIK Group. It is a collaborative platform using technologies developed by IBM to prevent human trafficking by integrating and analyzing data from multiple sectors. The Hub provides a comprehensive source of intelligence on human trafficking and exploitation worldwide.');
+    }, 5000);
+
+    setTimeout(() => {
+        updateOverlayText('Traffik Analysis Hub (TAH)','The Traffik Analysis Hub aims to create a single, coherent source of intelligence on human trafficking and exploitation worldwide. It seeks to prevent human trafficking by integrating and sharing data across multiple sectors, facilitating greater trust and collaboration. The Hub supports the identification, tracking, and countering of human trafficking by providing actionable insights and fostering joint analysis of large data sets.')
+    })
+  </script>
 
   <!-- Include your WebXR application script here -->
   <script src="your-webxr-script.js"></script>
