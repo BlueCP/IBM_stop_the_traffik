@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WebXR Application</title>
+  <style>
+    /* Import IBM Plex font */
+    @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;700&display=swap');
+
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'IBM Plex Sans', sans-serif;
+      background-color: #f4f4f4;
+    }
+
+    .xr-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+    }
+
+    .text-container {
+      background: white;
+      padding: 2rem;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      text-align: center;
+      max-width: 600px;
+    }
+
+    h1 {
+      font-size: 2rem;
+      color: #0f62fe; /* IBM primary blue */
+      margin-bottom: 1rem;
+    }
+
+    p {
+      font-size: 1rem;
+      color: #393939; /* IBM gray 100 */
+    }
+  </style>
+</head>
+<body>
+  <div class="xr-overlay">
+    <div class="text-container">
+      <h1 id="overlay-title">Welcome to the Traffik Analysis Hub Virtual Exhibit</h1>
+      <p id="overlay-text">This exhibit is an interactive experience to explore the Traffik Analysis Hub (TAH). Wave your phone around while looking at the floor and tap to start.</p>
+    </div>
+  </div>
+
+  <script>
+    function updateOverlayText(title, text) {
+      document.getElementById('overlay-title').innerText = title;
+      document.getElementById('overlay-text').innerText = text;
+    }
+
+    // Example: Changing text after 5 seconds
+    setTimeout(() => {
+        updateOverlayText('Traffik Analysis Hub (TAH)', 'The TAH is a not-for-profit organization based in the UK, part of the STOP THE TRAFFIK Group. It is a collaborative platform using technologies developed by IBM to prevent human trafficking by integrating and analysing data from multiple sectors. The Hub provides a comprehensive source of intelligence on human trafficking and exploitation worldwide.');
+        
+        // Changing text after 5 seconds
+        setTimeout(() => {
+            updateOverlayText('Traffik Analysis Hub (TAH)','The Traffik Analysis Hub aims to create a single, coherent source of intelligence on human trafficking and exploitation worldwide. It seeks to prevent human trafficking by integrating and sharing data across multiple sectors, facilitating greater trust and collaboration. The Hub supports the identification, tracking, and countering of human trafficking by providing actionable insights and fostering joint analysis of large data sets.')
+            
+            // Changing text after 5 seconds
+            setTimeout(() => {
+                updateOverlayText('How the Traffik Analysis Hub (TAH) works','The TAH works by leveraging advanced IBM technologies to collect, analyse, and share data on human trafficking.')
+                
+                // Changing text after 5 seconds
+                setTimeout(() => {
+                    updateOverlayText('IBM Technology in the Traffic Analysis Hub (TAH)', "IBM Watson Studio and Discovery are used to analyse large datasets and extract valuable insights on trafficking patterns and hotspots. IBM Cloud Services are used to provide the necessary infrastructure, security models, logging, and log analysis to support the Hub's operations. Generative AI Models have been recently integrated to improve location identification, which enhance the accuracy of trafficking detection by 90%.")
+                    
+                    // Changing text after 5 seconds
+                    setTimeout(() => {
+                        updateOverlayText('Facilities on the Traffik Analysis Hub (TAH)', 'Data Integration allows the TAH to aggregate data from various sources including NGOs, financial institutions, law enforcement, businesses, and academic researchers. Joint Analyis allows partners to pool their data assets and generate new insights into trafficking incidents. Information Sharing facilitates the safe and trusted sharing of trafficking-related information among stakeholders. Governance Model creates a shared ownership promoting collaboration and trust among participating organisations.')
+                        
+                        // Changing text after 5 seconds
+                        setTimeout(() => {
+                            updateOverlayText('Routemaps', 'These depict the trafficking routes which can be filtered by dates and trafficking characteristics. Sources and destinations are shown with lines depicting the directionality of movement. The example shown is from northern Vietnam to the sout-east of England.')
+                        })
+                    }, 5000)
+                }, 5000)
+            }, 5000)
+        }, 5000)
+    }, 5000);
+
+    
+  </script>
+
+  <!-- Include your WebXR application script here -->
+  <script src="your-webxr-script.js"></script>
+</body>
+</html>
