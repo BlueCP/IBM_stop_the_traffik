@@ -70,30 +70,37 @@ window.gltfLoader.load("../assets/animate.glb", function(gltf) {
 });
 
 function map(){
-  const N = 20;
+  // const N = 20;
 
-  const arcsData = [...Array(N).keys()].map(() => ({
-    startLat: (Math.random() - 0.5) * 180,
-    startLng: (Math.random() - 0.5) * 360,
-    endLat: (Math.random() - 0.5) * 180,
-    endLng: (Math.random() - 0.5) * 360,
-    color: ['red', 'white', 'blue', 'green'][Math.round(Math.random() * 3)]
-  }));
+  // const arcsData = [...Array(N).keys()].map(() => ({
+  //   startLat: (Math.random() - 0.5) * 180,
+  //   startLng: (Math.random() - 0.5) * 360,
+  //   endLat: (Math.random() - 0.5) * 180,
+  //   endLng: (Math.random() - 0.5) * 360,
+  //   color: ['red', 'white', 'blue', 'green'][Math.round(Math.random() * 3)]
+  // }));
 
   const Globe = new ThreeGlobe()
     .globeImageUrl('https://unpkg.com/three-globe@2.31.1/example/img/earth-night.jpg')
-    .arcsData(arcsData)
-    .arcColor('color')
-    .arcDashLength(0.4)
-    .arcDashGap(4)
-    .arcDashInitialGap(() => Math.random() * 5)
-    .arcDashAnimateTime(1000);
+    // .arcsData(arcsData)
+    // .arcColor('color')
+    // .arcDashLength(0.4)
+    // .arcDashGap(4)
+    // .arcDashInitialGap(() => Math.random() * 5)
+    // .arcDashAnimateTime(1000);
 
+  Globe.traverse(function(node){
+    console.log('Name: ', node.name, ' Type: ', node.type);
+  });
+
+  
   return Globe;
 
 }
 
 window.beep = map();
+
+// console.log(Globe.getGlobeRadius() , ":)");
 // window.beep.scale.x /= 100000;
 // window.beep.scale.y /= 100000;
 // window.beep.scale.z /= 100000;
@@ -103,20 +110,20 @@ window.gltfLoader.load("../assets/work.glb", function(gltf) {
   const scene = gltf.scene;
   for(i in gltf.animations){
     console.log(i);
-    console.log("hehe bway")
+    console.log("hehe bway");
   };
-  scene.traverse(function(node){
-    // if (node.isObject3D && !(node.isMesh)) {
-    //   const mesh = convertToMesh(node);
-    //   if (mesh) {
-    //     // Replace the child in the scene with the new mesh
-    //     child.parent.add(mesh);
-    //     child.parent.remove(child);
-    //   }
-    // }
-    console.log('Name: ', node.name, ' Type: ', node.type);
-    console.log('wicklicky');
-  });
+  // scene.traverse(function(node){
+  //   // if (node.isObject3D && !(node.isMesh)) {
+  //   //   const mesh = convertToMesh(node);
+  //   //   if (mesh) {
+  //   //     // Replace the child in the scene with the new mesh
+  //   //     child.parent.add(mesh);
+  //   //     child.parent.remove(child);
+  //   //   }
+  //   // }
+  //   console.log('Name: ', node.name, ' Type: ', node.type);
+  //   console.log('wicklicky');
+  // });
 });
 
 
@@ -209,13 +216,17 @@ function textBox(input){
 
 }
 
-window.msg1 = textBox("Howdilly\ndoodily");
+const heatmap_msg = "placeholder";
+const routemap_msg = "placeholder";
+const example_msg = "placeholder";
+const stats_msg = "placeholder";
 
 
-
-
-
-
+window.welcome = textBox("Howdilly\ndoodily");
+window.heatmap = textBox(heatmap_msg);
+window.routemap = textBox(routemap_msg);
+window.example = textBox(example_msg);
+window.stats = textBox(stats_msg);
 
 
 
