@@ -85,7 +85,28 @@
                         // Changing text after 5 seconds
                         setTimeout(() => {
                             updateOverlayText('Routemaps', 'These depict the trafficking routes which can be filtered by dates and trafficking characteristics. Sources and destinations are shown with lines depicting the directionality of movement. The example shown is from northern Vietnam to the sout-east of England.')
-                        })
+                            
+                            // Show the AR model animation alongside this
+                            
+                            // Changing text after 5 seconds
+                            setTimeout(() => {
+                                updateOverlayText('Clustered Markers', 'These show the count of data points, which are usually trafficking incident reports, identified and geolocated based on locations mentioned in report text. Where multiple points are detected, an icon is displayed with the count of incidents displayed. The colour of these clusters change based on the count value for the data points identified.')
+                            
+                                // Show the AR model animation alongside this
+
+                                // Changing text after 5 seconds
+                                setTimeout(() => {
+                                    updateOverlayText('Intensity Heatmaps', 'These depict the areas of greates intensity for data points in the dataset isolated. This helps analysists understand geographical patterns present in large datasets.')
+                                
+                                    // Show the AR model animation alongside this
+
+                                    // Changing text after 5 seconds
+                                    setTimeOUt(() => {
+                                        updateOverlayText('Who can use and benefit from the Traffik Analysis Hub (TAH)', 'NGOs, Business sectors, Governments, Law enforcement, Academics and Researchers can benefit from the TAH, please explore and commune with the IBM Watson chatbot to find out about your specific use-cases and benefits.')
+                                    }, 5000)
+                                }, 5000)
+                            }, 5000)
+                        }, 5000)
                     }, 5000)
                 }, 5000)
             }, 5000)
