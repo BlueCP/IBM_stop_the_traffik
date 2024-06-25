@@ -132,12 +132,49 @@ class App {
     return globe;
   }
 
+  createGlobeHeatmap() {
+    // Gen random data
+    const N = 100; // 300
+    const gData = [...Array(N).keys()].map(() => ({
+      lat: (Math.random() - 0.5) * 160,
+      lng: (Math.random() - 0.5) * 360,
+      weight: Math.random()
+    }));
+
+    const globe = new ThreeGlobe()
+      .globeImageUrl('https://unpkg.com/three-globe@2.31.1/example/img/earth-night.jpg')
+      .heatmapsData([gData])
+      .heatmapPointLat('lat')
+      .heatmapPointLng('lng')
+      .heatmapPointWeight('weight')
+      .heatmapTopAltitude(0.3) // 0.7
+      .heatmapsTransitionDuration(1000); // 3000
+
+    globe.showAtmosphere(false);
+    globe.scale.set(0.001,0.001,0.001);
+    globe.position.set(0.0, 0.5, 0.0);
+    const factor = 1;
+    globe.scale.x /= factor;
+    globe.scale.y /= factor;
+    globe.scale.z /= factor;
+    globe.globeMaterial.wireframe = true;
+    return globe;
+  }
+
   scene_insert(model, x, y, z) {
     if (model) {
-      const clone = model.clone();
-      const offset = new THREE.Vector3(x, y, z);
-      clone.position.copy(this.reticle.position).add(offset);
-      this.scene.add(clone);
+      // const clone = model.clone();
+      // console.log('original: ', model)
+      // console.log('clone: ', clone)
+      // const offset = new THREE.Vector3(x, y, z);
+      // clone.position.copy(this.reticle.position).add(offset);
+      // console.log('original image: ', model.globeImageUrl())
+      // console.log('clone image: ', clone.globeImage(Url())
+      // this.scene.add(clone);
+      model.position.copy(this.reticle.position).add(new THREE.Vector3(x, y, z))
+      model.scale.set(0.0001, 0.0001, 0.0001)
+      console.log('image url: ', model.globeImageUrl())
+      this.scene.add(model)
       console.log("model inserted");
     } else {
       console.log('Model is undefined');
@@ -147,17 +184,17 @@ class App {
    * Add a model when the screen is tapped.
    */
   onSelect = () => {
-    // window.bow = this.createGlobe();
-    // if (window.bow) {
-    //   console.log('material: ', window.bow.globeMaterial());
-    //   console.log('scale: ', window.bow.scale);
-    //   console.log('radius: ', window.bow.getGlobeRadius());
+    window.bow = this.createGlobeHeatmap();
+    if (window.bow) {
+      console.log('material: ', window.bow.globeMaterial());
+      console.log('scale: ', window.bow.scale);
+      console.log('radius: ', window.bow.getGlobeRadius());
 
-    //   this.scene_insert(window.bow, 0.0, 1.4, -100.0);
-    // } else {
-    //   console.log('window.bow is not defined');
-    // }
-    this.scene_insert(this.objects[this.count], 0.0, 1.8, 0.0);
+      this.scene_insert(window.bow, 0.0, 1.4, -500.0);
+    } else {
+      console.log('window.bow is not defined');
+    }
+    // this.scene_insert(this.objects[this.count], 0.0, 1.8, 0.0);
     // this.scene_insert(window.welcome, 0.0, 1.4, 0.0);
     // this.scene_insert(window.heatmap, 0.25, 1.4, 0.5);
     // this.scene_insert(window.routemap, 0.5, 1.4, 1.0);
