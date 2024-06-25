@@ -79,6 +79,14 @@
                     updateOverlayText('IBM Technology in the Traffic Analysis Hub (TAH)', "IBM Watson Studio and Discovery are used to analyse large datasets and extract valuable insights on trafficking patterns and hotspots. IBM Cloud Services are used to provide the necessary infrastructure, security models, logging, and log analysis to support the Hub's operations. Generative AI Models have been recently integrated to improve location identification, which enhance the accuracy of trafficking detection by 90%.")
                     
                     // Changing text after 5 seconds
+                    setTimeout(() => {
+                        updateOverlayText('Facilities on the Traffik Analysis Hub (TAH)', 'Data Integration allows the TAH to aggregate data from various sources including NGOs, financial institutions, law enforcement, businesses, and academic researchers. Joint Analyis allows partners to pool their data assets and generate new insights into trafficking incidents. Information Sharing facilitates the safe and trusted sharing of trafficking-related information among stakeholders. Governance Model creates a shared ownership promoting collaboration and trust among participating organisations.')
+                        
+                        // Changing text after 5 seconds
+                        setTimeout(() => {
+                            updateOverlayText('Routemaps', 'These depict the trafficking routes which can be filtered by dates and trafficking characteristics. Sources and destinations are shown with lines depicting the directionality of movement. The example shown is from northern Vietnam to the sout-east of England.')
+                        })
+                    }, 5000)
                 }, 5000)
             }, 5000)
         }, 5000)
