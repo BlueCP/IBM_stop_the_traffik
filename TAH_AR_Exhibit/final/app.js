@@ -143,6 +143,7 @@ class App {
 
     const globe = new ThreeGlobe()
       .globeImageUrl('https://unpkg.com/three-globe@2.31.1/example/img/earth-night.jpg')
+
       .heatmapsData([gData])
       .heatmapPointLat('lat')
       .heatmapPointLng('lng')
@@ -159,6 +160,34 @@ class App {
     globe.scale.z /= factor;
     globe.globeMaterial.wireframe = true;
     return globe;
+
+    // fetch('./ne_110m_admin_0_countries.geojson').then(res => res.json()).then(countries => {
+    //   const globe = new ThreeGlobe()
+    //     .globeImageUrl('https://unpkg.com/three-globe@2.31.1/example/img/earth-night.jpg')
+
+    //     .heatmapsData([gData])
+    //     .heatmapPointLat('lat')
+    //     .heatmapPointLng('lng')
+    //     .heatmapPointWeight('weight')
+    //     .heatmapTopAltitude(0.3) // 0.7
+    //     .heatmapsTransitionDuration(1000) // 3000
+
+    //     .hexPolygonsData(countries.features)
+    //     .hexPolygonResolution(3)
+    //     .hexPolygonMargin(0.3)
+    //     .hexPolygonUseDots(true)
+    //     .hexPolygonColor(() => `#${Math.round(Math.random() * Math.pow(2, 24)).toString(16).padStart(6, '0')}`);
+
+    //   globe.showAtmosphere(false);
+    //   globe.scale.set(0.001,0.001,0.001);
+    //   globe.position.set(0.0, 0.5, 0.0);
+    //   const factor = 1;
+    //   globe.scale.x /= factor;
+    //   globe.scale.y /= factor;
+    //   globe.scale.z /= factor;
+    //   globe.globeMaterial.wireframe = true;
+    //   return globe;
+    // })
   }
 
   scene_insert(model, x, y, z) {
