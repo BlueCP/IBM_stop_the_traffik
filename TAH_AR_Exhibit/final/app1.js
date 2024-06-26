@@ -137,7 +137,7 @@ class App1 {
     const gData = [...Array(N).keys()].map(() => ({
       lat: (Math.random() - 0.5) * 180,
       lng: (Math.random() - 0.5) * 360,
-      size: Math.random() * 1,
+      size: 1,
       color: ['red', 'white', 'blue', 'green'][Math.round(Math.random() * 3)]
     }));
 
@@ -147,7 +147,7 @@ class App1 {
       .labelsData(gData)
       .labelText(d => `(${Math.round(d.lat * 1e2) / 1e2}, ${Math.round(d.lng * 1e2) / 1e2})`)
       .labelSize('size')
-      .labelDotRadius(d => d.size * 5)
+      .labelDotRadius(d => d.size * 2)
       .labelColor('color');
 
     clusterGlobe.showAtmosphere(false);
@@ -263,24 +263,24 @@ class App1 {
   
       
       // this.scene_insert(this.objects[this.count], 0.0, 1.8, 0.0);
-      this.scene_insert(window.welcome, 0.0, 1.5, 0.0);
+      this.scene_insert(window.welcome, 0.0, 1.5, -0.2);
   
-      this.scene_insert(window.heatmap1, -0.5, 1.5, -0.75);
-      this.scene_insert(window.heatmap2, 0.5, 1.5, -0.75);
+      this.scene_insert(window.heatmap1, -0.5, 1.5, -1.2);
+      this.scene_insert(window.heatmap2, 0.5, 1.5, -1.2);
   
-      this.scene_insert(window.routemap1, -0.75, 1.5, 0.25);
-      this.scene_insert(window.routemap2, -0.75, 1.1, 0.25);
+      this.scene_insert(window.routemap1, -1.5, 1.8, 0.25);
+      this.scene_insert(window.routemap2, -1.5, 1.1, 0.25);
 
       
-      this.scene_insert(window.example1, -0.75, 1.5, -0.25);
-      this.scene_insert(window.example2, -0.75, 1.1, -0.25);
+      this.scene_insert(window.example1, -1.5, 1.8, -0.25);
+      this.scene_insert(window.example2, -1.5, 1.1, -0.25);
   
-      this.scene_insert(window.stats, -0.25, 1.5, 1.0);
+      this.scene_insert(window.stats, -0.25, 1.5, 1.5);
   
-      this.scene_insert(window.tech_msg1, -0.25, 1.1, 1.0);
+      this.scene_insert(window.tech_msg1, -0.25, 1.1, 1.5);
 
-      this.scene_insert(window.comm_msg1,0.25, 1.5,1.0 );
-      this.scene_insert(window.comm_msg2,0.25, 1.1,1.0);
+      this.scene_insert(window.comm_msg1,0.25, 1.5,1.5 );
+      this.scene_insert(window.comm_msg2,0.25, 1.1,1.5);
 
   
       
@@ -290,8 +290,9 @@ class App1 {
   
       if (this.glbModel) {
         const clone = this.glbModel.clone();
-        clone.position.copy(this.reticle.position).add(new THREE.Vector3(-1.0, 1.8, 0.0));
+        clone.position.copy(this.reticle.position).add(new THREE.Vector3(-1.5, 1.45, 0.0));
         clone.scale.set(clone.scale.x / 5, clone.scale.y / 5, clone.scale.z / 5);
+        clone.rotateY(0.5);
         this.scene.add(clone);
   
         // Create an AnimationMixer and play the animation
