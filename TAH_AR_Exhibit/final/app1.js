@@ -1,3 +1,17 @@
+/*
+ * Copyright 2017 Google Inc. All Rights Reserved.
+ * Licensed under the Apache License, Version 2.0 (the 'License');
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an 'AS IS' BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 
 /**
  * Query for WebXR support. If there's no support for the `immersive-ar` mode,
@@ -6,11 +20,9 @@
 (async function() {
   const isArSessionSupported = navigator.xr && navigator.xr.isSessionSupported && await navigator.xr.isSessionSupported("immersive-ar");
   if (isArSessionSupported) {
-    document.getElementById("startButton_ngo").addEventListener("click", window.app.activateXR);
-    console.log("yahoo");
+    document.getElementById("enter-ar").addEventListener("click", window.app.activateXR)
   } else {
     onNoXRDevice();
-    console.log("monkey wasn't funky");
   }
 })();
 
@@ -40,11 +52,9 @@ class App {
 
       // Create the canvas that will contain our camera's background and our virtual scene.
       this.createXRCanvas();
-      document.getElementById('landingPage').style.display = 'none';
 
       // Load the model
-      await this.loadGLTFModel1('../assets/AR-Experience.glb');
-
+      await this.loadGLTFModel('../assets/AR-Experience.glb');
 
       // With everything set up, start the app.
       await this.onSessionStarted();
@@ -57,7 +67,7 @@ class App {
   /**
    * Load a GLTF model
    */
-  loadGLTFModel1 = async (path) => {
+  loadGLTFModel = async (path) => {
     const loader = new THREE.GLTFLoader();
     return new Promise((resolve, reject) => {
       loader.load(path, (gltf) => {
@@ -68,16 +78,6 @@ class App {
     });
   }
 
-  // loadGLTFModel2 = async (path) => {
-  //   const loader = new THREE.GLTFLoader();
-  //   return new Promise((resolve, reject) => {
-  //     loader.load(path, (gltf) => {
-  //       this.glbModel = gltf.scene;
-  //       this.animations = gltf.animations;
-  //       resolve();
-  //     }, undefined, reject);
-  //   });
-  // }
   /**
    * Add a canvas element and initialize a WebGL context that is compatible with WebXR.
    */
@@ -132,102 +132,12 @@ class App {
     return globe;
   }
 
-  createClustered(){
-    const N = 300;
-    const gData = [...Array(N).keys()].map(() => ({
-      lat: (Math.random() - 0.5) * 180,
-      lng: (Math.random() - 0.5) * 360,
-      size: Math.random() * 1,
-      color: ['red', 'white', 'blue', 'green'][Math.round(Math.random() * 3)]
-    }));
-
-    const clusterGlobe = new ThreeGlobe()
-      .globeImageUrl('//unpkg.com/three-globe/example/img/earth-day.jpg')
-      .bumpImageUrl('//unpkg.com/three-globe/example/img/earth-topology.png')
-      .labelsData(gData)
-      .labelText(d => `(${Math.round(d.lat * 1e2) / 1e2}, ${Math.round(d.lng * 1e2) / 1e2})`)
-      .labelSize('size')
-      .labelDotRadius(d => d.size * 5)
-      .labelColor('color');
-
-    clusterGlobe.showAtmosphere(false);
-    return clusterGlobe;
-  }
-
-
-  createGlobeHeatmap() {
-    // Gen random data
-    const N = 100; // 300
-    const gData = [...Array(N).keys()].map(() => ({
-      lat: (Math.random() - 0.5) * 160,
-      lng: (Math.random() - 0.5) * 360,
-      weight: Math.random()
-    }));
-
-    const globe = new ThreeGlobe()
-      .globeImageUrl('https://unpkg.com/three-globe@2.31.1/example/img/earth-day.jpg')
-
-      .heatmapsData([gData])
-      .heatmapPointLat('lat')
-      .heatmapPointLng('lng')
-      .heatmapPointWeight('weight')
-      .heatmapTopAltitude(0.3) // 0.7
-      .heatmapsTransitionDuration(1000) // 3000
-      // .heatmapBandwidth(2);
-
-    globe.showAtmosphere(false);
-    // globe.scale.set(0.001,0.001,0.001);
-    globe.position.set(0.0, 0.5, 0.0);
-    const factor = 1;
-    globe.scale.x /= factor;
-    globe.scale.y /= factor;
-    globe.scale.z /= factor;
-    globe.globeMaterial.wireframe = false;
-    return globe;
-
-    // fetch('./ne_110m_admin_0_countries.geojson').then(res => res.json()).then(countries => {
-    //   const globe = new ThreeGlobe()
-    //     .globeImageUrl('https://unpkg.com/three-globe@2.31.1/example/img/earth-night.jpg')
-
-    //     .heatmapsData([gData])
-    //     .heatmapPointLat('lat')
-    //     .heatmapPointLng('lng')
-    //     .heatmapPointWeight('weight')
-    //     .heatmapTopAltitude(0.3) // 0.7
-    //     .heatmapsTransitionDuration(1000) // 3000
-
-    //     .hexPolygonsData(countries.features)
-    //     .hexPolygonResolution(3)
-    //     .hexPolygonMargin(0.3)
-    //     .hexPolygonUseDots(true)
-    //     .hexPolygonColor(() => `#${Math.round(Math.random() * Math.pow(2, 24)).toString(16).padStart(6, '0')}`);
-
-    //   globe.showAtmosphere(false);
-    //   globe.scale.set(0.001,0.001,0.001);
-    //   globe.position.set(0.0, 0.5, 0.0);
-    //   const factor = 1;
-    //   globe.scale.x /= factor;
-    //   globe.scale.y /= factor;
-    //   globe.scale.z /= factor;
-    //   globe.globeMaterial.wireframe = true;
-    //   return globe;
-    // })
-  }
-
   scene_insert(model, x, y, z) {
     if (model) {
-      // const clone = model.clone();
-      // console.log('original: ', model)
-      // console.log('clone: ', clone)
-      // const offset = new THREE.Vector3(x, y, z);
-      // clone.position.copy(this.reticle.position).add(offset);
-      // console.log('original image: ', model.globeImageUrl())
-      // console.log('clone image: ', clone.globeImage(Url())
-      // this.scene.add(clone);
-      model.position.copy(this.reticle.position).add(new THREE.Vector3(x, y, z))
-      // model.scale.set(0.0001, 0.0001, 0.0001)
-      // console.log('image url: ', model.globeImageUrl())
-      this.scene.add(model)
+      const clone = model.clone();
+      const offset = new THREE.Vector3(x, y, z);
+      clone.position.copy(this.reticle.position).add(offset);
+      this.scene.add(clone);
       console.log("model inserted");
     } else {
       console.log('Model is undefined');
@@ -237,7 +147,7 @@ class App {
    * Add a model when the screen is tapped.
    */
   onSelect = () => {
-    window.bow = this.createGlobeHeatmap();
+    window.bow = this.createGlobe();
     if (window.bow) {
       console.log('material: ', window.bow.globeMaterial());
       console.log('scale: ', window.bow.scale);
@@ -247,43 +157,18 @@ class App {
     } else {
       console.log('window.bow is not defined');
     }
-    
-    window.oink = this.createClustered();
-    if (window.oink) {
-      console.log('material: ', window.oink.globeMaterial());
-      console.log('scale: ', window.oink.scale);
-      console.log('radius: ', window.oink.getGlobeRadius());
-
-      this.scene_insert(window.oink, 500.0, 1.4, 0.0);
-    } else {
-      console.log('window.oink is not defined');
-    }
-
-
-    
     // this.scene_insert(this.objects[this.count], 0.0, 1.8, 0.0);
     this.scene_insert(window.welcome, 0.0, 1.5, 0.0);
 
-    this.scene_insert(window.heatmap1, -0.25, 1.5, -0.5);
-    this.scene_insert(window.heatmap2, 0.25, 1.5, -0.5);
-
-    this.scene_insert(window.routemap, -0.5, 1.5, 0.25);
-
-    this.scene_insert(window.example1, -0.5, 1.5, -0.25);
-    this.scene_insert(window.example2, -0.5, 1.1, -0.25);
-
-    this.scene_insert(window.stats, 0.0, 1.5, 1.0);
-
-    this.scene_insert(window.tech_msg1, 0.0, 1.1, 1.0);
-
-    
-    
-
-
+    // this.scene_insert(window.welcome, 0.0, 1.4, 0.0);
+    // this.scene_insert(window.heatmap, 0.25, 1.4, 0.5);
+    // this.scene_insert(window.routemap, 0.5, 1.4, 1.0);
+    // this.scene_insert(window.example, 0.75, 1.4, 1.5);
+    // this.scene_insert(window.stats, 1.0, 1.4, 2.0);
 
     if (this.glbModel) {
       const clone = this.glbModel.clone();
-      clone.position.copy(this.reticle.position).add(new THREE.Vector3(-0.5, 1.8, 0.0));
+      clone.position.copy(this.reticle.position);
       clone.scale.set(clone.scale.x / 2, clone.scale.y / 2, clone.scale.z / 2);
       this.scene.add(clone);
 
@@ -293,19 +178,6 @@ class App {
     } else {
       console.log('Model not loaded yet');
     }
-
-    // if (this.glbModel) {
-    //   const clone = this.glbModel.clone();
-    //   clone.position.copy(this.reticle.position).add(new THREE.Vector3(0.0, 1.5, -1.0));
-    //   clone.scale.set(clone.scale.x / 2, clone.scale.y / 2, clone.scale.z / 2);
-    //   this.scene.add(clone);
-
-    //   // Create an AnimationMixer and play the animation
-    //   this.mixer = new THREE.AnimationMixer(clone);
-    //   this.playAnimation('ArrowAction');
-    // } else {
-    //   console.log('Model not loaded yet');
-    // }
 
     this.scene.traverse(function (node) {
       console.log('Name: ', node.name, ' Type: ', node.type);
