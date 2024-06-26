@@ -268,6 +268,8 @@ window.comm_msg2 = textBox(comm_msg2);
 
 // left wall
 window.routemap1.rotateY(1.57);
+window.routemap2.rotateY(1.57);
+
 window.example1.rotateY(1.57);
 window.example2.rotateY(1.57);
 
