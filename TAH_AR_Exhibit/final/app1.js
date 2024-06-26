@@ -6,7 +6,7 @@
 (async function() {
   const isArSessionSupported = navigator.xr && navigator.xr.isSessionSupported && await navigator.xr.isSessionSupported("immersive-ar");
   if (isArSessionSupported) {
-    document.getElementById("startButton_comm").addEventListener("click", window.app.activateXR);
+    document.getElementById("startButton_comm").addEventListener("click", window.app1.activateXR);
     console.log("yahoo");
   } else {
     onNoXRDevice();
@@ -18,7 +18,7 @@
  * Container class to manage connecting to the WebXR Device API
  * and handle rendering on every frame.
  */
-class App {
+class App1 {
 
   constructor() {
     this.glbModel = null;
@@ -438,4 +438,4 @@ class App {
 
 };
 
-window.app = new App();
+window.app1 = new App1();
