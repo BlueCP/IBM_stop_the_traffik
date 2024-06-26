@@ -152,7 +152,7 @@ window.gltfLoader.load("../assets/work.glb", function(gltf) {
 // });
 
 
-function textBox(input){
+function textBox(input, size = 0.3){
 
   // Create a canvas element
   const canvas = document.createElement('canvas');
@@ -204,7 +204,7 @@ function textBox(input){
 
   // Calculate display size
   const aspect = canvas.width / canvas.height;
-  const displayHeight = 0.3; // desired height in world units
+  const displayHeight = size; // desired height in world units
   const displayWidth = displayHeight * aspect; // maintain aspect ratio
 
   // Create material for the plane
@@ -239,6 +239,10 @@ const ngo_msg2 = "Which can be used to facilitate:\n\n - Research and investigat
 const comm_msg1 = "TAH for Commercial Partners:\n -Banks\n -Businesses (e.g. house and\n car rental agencies)";
 const comm_msg2 = "Subscription membership to access \n exploitation analytics and \n Intelligence and trends that \n affect your business";
 
+const instructions = "Wave the phone around \n the ground as shown by \n the animation until the target appears. \n\n Then tap on the screen \n to load in the AR gallery";
+
+window.instructions = textBox(instructions, 0.6);
+window.instructions.rotateX(-1.57);
 
 window.welcome = textBox(welcome_msg);
 
