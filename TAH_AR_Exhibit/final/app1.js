@@ -230,13 +230,14 @@ class App1 {
       this.scene.add(model)
       console.log("model inserted");
     } else {
-      console.log('Model is undefined');
+      console.log('model is undefined');
     }
   }
   /**
    * Add a model when the screen is tapped.
    */
   onSelect = () => {
+    console.log(this.reticle.position);
     if(this.count == 0){
       window.bow = this.createGlobeHeatmap();
       if (window.bow) {
@@ -281,6 +282,7 @@ class App1 {
 
       this.scene_insert(window.comm_msg1,0.25, 1.5,1.5 );
       this.scene_insert(window.comm_msg2,0.25, 1.1,1.5);
+      this.scene_insert(window.instructions, 0.0, 0.0, 0.0);
 
   
       
@@ -385,9 +387,16 @@ class App1 {
         const hitPose = hitTestResults[0].getPose(this.localReferenceSpace);
 
         // Update the reticle position
-        this.reticle.visible = true;
-        this.reticle.position.set(hitPose.transform.position.x, hitPose.transform.position.y, hitPose.transform.position.z)
-        this.reticle.updateMatrixWorld(true);
+        if(this.count < 1){
+          this.reticle.visible = true;
+          this.reticle.position.set(hitPose.transform.position.x, hitPose.transform.position.y, hitPose.transform.position.z)
+          this.reticle.updateMatrixWorld(true);
+        }
+        else{
+          this.reticle.visible = false;
+
+
+        }
       }
 
       // Update the animation mixer if it exists

@@ -281,6 +281,8 @@ class App {
 
       this.scene_insert(window.ngo_msg1,0.25, 1.5,1.5 );
       this.scene_insert(window.ngo_msg2,0.25, 1.1,1.5);
+      this.scene_insert(window.instructions, 0.0, 0.0, 0.0);
+
 
   
       
@@ -385,9 +387,16 @@ class App {
         const hitPose = hitTestResults[0].getPose(this.localReferenceSpace);
 
         // Update the reticle position
-        this.reticle.visible = true;
-        this.reticle.position.set(hitPose.transform.position.x, hitPose.transform.position.y, hitPose.transform.position.z)
-        this.reticle.updateMatrixWorld(true);
+        if(this.count < 1){
+          this.reticle.visible = true;
+          this.reticle.position.set(hitPose.transform.position.x, hitPose.transform.position.y, hitPose.transform.position.z)
+          this.reticle.updateMatrixWorld(true);
+        }
+        else{
+          this.reticle.visible = false;
+
+        }
+
       }
 
       // Update the animation mixer if it exists
