@@ -127,29 +127,29 @@ window.gltfLoader.load("../assets/work.glb", function(gltf) {
 });
 
 
-fontLoader.load('https://threejs.org/examples/fonts/helvetiker_regular.typeface.json', function (font) {
-  // Create text geometry
-  const geometry = new THREE.TextGeometry('TAH Virtual Exhibit', {
-    font: font,
-    size: 0.25,
-    height: 0.1,
-    curveSegments: 12,
-    bevelEnabled: true,
-    bevelThickness: 0.03,
-    bevelSize: 0.02,
-    bevelOffset: 0,
-    bevelSegments: 5
-  });
+// fontLoader.load('https://threejs.org/examples/fonts/helvetiker_regular.typeface.json', function (font) {
+//   // Create text geometry
+//   const geometry = new THREE.TextGeometry('TAH Virtual Exhibit', {
+//     font: font,
+//     size: 0.25,
+//     height: 0.1,
+//     curveSegments: 12,
+//     bevelEnabled: true,
+//     bevelThickness: 0.03,
+//     bevelSize: 0.02,
+//     bevelOffset: 0,
+//     bevelSegments: 5
+//   });
 
-  // Create a material
-  const material = new THREE.MeshBasicMaterial({ color: 0x0000ff });
+//   // Create a material
+//   const material = new THREE.MeshBasicMaterial({ color: 0x0000ff });
   
-  // Create a mesh and add it to the scene
-  const textMesh = new THREE.Mesh(geometry, material);
-  textMesh.scale /= 3;
+//   // Create a mesh and add it to the scene
+//   const textMesh = new THREE.Mesh(geometry, material);
+//   textMesh.scale /= 3;
 
-  window.textMesh = textMesh;
-});
+//   window.textMesh = textMesh;
+// });
 
 
 function textBox(input){
@@ -159,16 +159,18 @@ function textBox(input){
   const context = canvas.getContext('2d');
 
   // Set canvas size larger for better resolution
-  canvas.width = 2048;
-  canvas.height = 1024;
+  canvas.width = 3072;
+  canvas.height = 2048;
 
   // Text properties
   const fontSize = 128; // Large font size for better resolution
-  const font = `128px Arial`;
+  const font = `128px Courier New`;
   const text = input;
   const textColor = 'white';
-  const outlineColor = 'black';
+  const outlineColor = 'blue';
   const outlineWidth = 5;
+  const borderWidth = 20; // Width of the border
+  const borderColor = 'blue'; // Color of the border
   const lineHeight = fontSize * 1.2; // Adjust line height as needed
 
   // Set font properties
@@ -177,8 +179,12 @@ function textBox(input){
   context.textBaseline = 'middle';
 
   // Background color
-  context.fillStyle = 'blue';
+  context.fillStyle = 'black';
   context.fillRect(0, 0, canvas.width, canvas.height);
+
+  context.lineWidth = borderWidth;
+  context.strokeStyle = borderColor;
+  context.strokeRect(borderWidth / 2, borderWidth / 2, canvas.width - borderWidth, canvas.height - borderWidth);
 
   // Draw each line of text
   context.fillStyle = textColor;
@@ -198,7 +204,7 @@ function textBox(input){
 
   // Calculate display size
   const aspect = canvas.width / canvas.height;
-  const displayHeight = 0.5; // desired height in world units
+  const displayHeight = 0.3; // desired height in world units
   const displayWidth = displayHeight * aspect; // maintain aspect ratio
 
   // Create material for the plane
@@ -213,21 +219,70 @@ function textBox(input){
 
   return mesh;
 
-
 }
+const welcome_msg = "Welcome the TAH Augmented Exhibit,\n showcasing the features of the\n Trafik Analysis Hub \n\n So you can see how you and your \n colleagues can use them to play \n a vital role in prevention of \n human trafficking";
+const heatmap_msg1 = "Intensity Heatmap \n This visualisation depicts the areas \n of greatest intensity for data points \n in the dataset isolated (based on \n the dates and trafficking \ncharacteristics specified by \n the hub user).";
+const heatmap_msg2 = "This visualisation is used to help\n analysts understand geographical patterns\n present in large datasets.";
 
-const heatmap_msg = "placeholder";
-const routemap_msg = "placeholder";
-const example_msg = "placeholder";
-const stats_msg = "placeholder";
+const routemap_msg1 = "Routemap\n This visualisation depicts the \n trafficking routes mentioned\nin the dataset isolated";
+const routemap_msg2 = "in the example shown the source is northern Vietnam and the destination is south-east England.";
+
+const example_msg1 = "Vinh City, Vietnam\n an incident has been reported \n by local law enforcement";
+const example_msg2 = "Essex, England\n Reports of 39 Vietnamese migrants \nfound dead in a lorry \nhaving reached the UK ";
+
+const stats_msg = "There are 49.6 million victims \n estimated to be trapped \n in modern-day slavery";
+const tech_msg1 = "How the Traffik Analysis Hub works:\nThe TAH works by leveraging \n advanced IBM technologies to collect,\n analyse, and share data \non human trafficking."
+
+const ngo_msg1 = "TAH for  NGOs, law enforcement,\n government agencies, universities:\n\n Direct access to the HUB free of charge";
+const ngo_msg2 = "Which can be used to facilitate:\n\n - Research and investigation \n Identifying trends \n(i.e. at risk groups,\n hotspots, etc \n -Informed prevention campaigns)";
+
+const comm_msg1 = "TAH for Commercial Partners:\n -Banks\n -Businesses (e.g. house and\n car rental agencies)";
+const comm_msg2 = "Subscription membership to access \n exploitation analytics and \n Intelligence and trends that \n affect your business";
 
 
-window.welcome = textBox("Howdilly\ndoodily");
-window.heatmap = textBox(heatmap_msg);
-window.routemap = textBox(routemap_msg);
-window.example = textBox(example_msg);
+window.welcome = textBox(welcome_msg);
+
+window.heatmap1 = textBox(heatmap_msg1);
+window.heatmap2 = textBox(heatmap_msg2)
+
+window.routemap1 = textBox(routemap_msg1);
+window.routemap2 = textBox(routemap_msg2);
+
+
+window.example1 = textBox(example_msg1);
+window.example2 = textBox(example_msg2);
+
+
 window.stats = textBox(stats_msg);
+window.tech_msg1 = textBox(tech_msg1);
 
+
+window.ngo_msg1 = textBox(ngo_msg1); 
+window.ngo_msg2 = textBox(ngo_msg2); 
+
+
+window.comm_msg1 = textBox(comm_msg1); 
+window.comm_msg2 = textBox(comm_msg2);
+
+
+
+// left wall
+window.routemap1.rotateY(1.57);
+window.example1.rotateY(1.57);
+window.example2.rotateY(1.57);
+
+
+// right wall (-1.57)
+
+// back wall
+window.stats.rotateY(3.14);
+window.tech_msg1.rotateY(3.14);
+
+window.comm_msg1.rotateY(3.14); 
+window.comm_msg2.rotateY(3.14);
+
+window.ngo_msg1.rotateY(3.14); 
+window.ngo_msg2.rotateY(3.14);
 
 
 console.log("zooweemama");
