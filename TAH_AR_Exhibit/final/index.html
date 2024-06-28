@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+  
+<head>
+  <title>TAH Virtual Exhibit</title>
+
+  <!-- three.js -->
+  <script src="https://unpkg.com/three@0.126.0/build/three.js"></script>
+  <script src="https://unpkg.com/three@0.126.0/examples/js/loaders/GLTFLoader.js"></script>
+  <script src="https://threejs.org/examples/jsm/loaders/FontLoader.js"></script>
+  <script src="https://threejs.org/examples/jsm/geometries/TextGeometry.js"></script>
+  <script src="https://unpkg.com/three-globe@2.31.1/dist/three-globe.min.js"></script>
+  <!-- <script type="module" src="three/addons/renderers/CSS2DRenderer.js"></script> -->
+
+  <link rel="stylesheet" type="text/css" href="/app.css" />
+  <script src="/utils.js"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+</head>
+
+<body>
+  <!-- Image at the top of the page -->
+  <!-- Landing Page -->
+  <div id="landingPage">
+    <div class="banner-container">
+      <img src="/assets/logo.png" alt="Banner Image" class="banner">
+      <div class="gradient"></div>
+    </div>
+    <h1 style="color: #ffffff;">Traffik Analysis Hub</h1>
+    <h2 style="color: #838383;">Virtual Exhibit</h2>
+    <button id="startButton_ngo">NGOs</button>
+    <button id="startButton_comm">Commercial Partners</button>
+  </div>
+
+  
+  <script src="ngoApp.js"></script>
+  <script src="commApp.js"></script>
+  <div id="stabilization"></div>
+
+
+  <script>
+    window.watsonAssistantChatOptions = {
+      integrationID: "c32874b0-61d5-4660-9035-769436c89d55", // The ID of this integration.
+      region: "eu-gb", // The region your integration is hosted in.
+      serviceInstanceID: "96ddcd49-92cc-448e-ad70-c073647a2acf", // The ID of your service instance.
+      onLoad: async (instance) => { await instance.render(); }
+    };
+    setTimeout(function(){
+      const t=document.createElement('script');
+      t.src="https://web-chat.global.assistant.watson.appdomain.cloud/versions/" + (window.watsonAssistantChatOptions.clientVersion || 'latest') + "/WatsonAssistantChatEntry.js";
+      document.head.appendChild(t);
+    });
+  </script>
+</body>
+</html>
