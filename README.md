@@ -1,4 +1,4 @@
-# IBM x Stop the Traffik Design History File (DHF)
+# IBM x Stop the Traffik 
 
 ## Table of Contents
 1. [Introduction](#introduction)
