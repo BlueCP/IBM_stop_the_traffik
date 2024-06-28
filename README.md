@@ -14,6 +14,7 @@
 
 <!-- SECTION 1 -->
 ## Introduction
+
 The IBM x Stop the Traffik project involves creating an AR app and a chatbot to demonstrate IBM's technological contributions to the charity. This repository documents the project's development process, including the relevant code, specifications, materials sourced, meeting records, and decision records.
 
 
@@ -26,7 +27,7 @@ This project aims to showcase how IBM's technologies are used to support the cha
 <!-- SECTION 3 -->
 ## Repository Structure
 
-The DHF is organized into the following sections:
+This repository is organized into the following sections:
 
 
 <!-- SECTION 4 -->
