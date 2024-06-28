@@ -32,7 +32,7 @@ The DHF is organized into the following sections:
 <!-- SECTION 4 -->
 ## Specifications
 
-Includes the technical specifications, functional and non-functional requirements and system architecture diagrams.
+Includes the technical specifications, functional and non-functional requirements.
 
 
 <!-- SECTION 5 -->
@@ -117,7 +117,7 @@ AFrame and Blender were originally considered to develop the AR Exhibit however 
 <!-- SECTION 9 -->
 ## Demo Video
 A demo video showcasing the project's features and functionalities is available:
-<!-- [here](https://imperiallondon-my.sharepoint.com/personal/yc3721_ic_ac_uk/_layouts/15/stream.aspx?id=%2Fpersonal%2Fyc3721%5Fic%5Fac%5Fuk%2FDocuments%2FEmbedded%20Demo%20Video%2Emov&referrer=StreamWebApp%2EWeb&referrerScenario=AddressBarCopied%2Eview) -->
+[here](https://drive.google.com/drive/folders/1UT_JhSFMgOTBW09LfRNaDjp3g8_FFwx_?usp=drive_link)
 
 <!-- SECTION 10 -->
 ## Authors
