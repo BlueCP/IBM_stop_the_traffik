@@ -81,7 +81,6 @@ Documents the software, APIs, libraries and development tools used in this proje
 - **XRSession** for managing AR sessions
 - **XRWebGLLayer** for creating WebGL rendering context for AR
 - **XRReferenceSpace** for defining coordinate systems
-- **Hit Testing** ...
 
 
 ### Development Tools
