@@ -7,7 +7,6 @@
 4. [Specifications](#specifications) 
 5. [Relevant Code](#relevant-code)
 6. [Materials Sourced and Used](#materials-sourced-and-used)
-7. [Meeting Records and Decision Log](#meeting-records-and-decision-log)
 8. [How to Use This Repository](#how-to-use-this-repository)
 9. [Demo Video](#demo-video)
 10. [Authors](#authors)
@@ -34,12 +33,6 @@ The DHF is organized into the following sections:
 ## Specifications
 
 Includes the technical specifications, functional and non-functional requirements and system architecture diagrams.
-
-<!-- FOLDERS:
-/Specifications
-AR_App_Specifications.md
-Chatbot_Specifications.md
-System_Architecture_Diagram.png -->
 
 
 <!-- SECTION 5 -->
@@ -96,10 +89,10 @@ Documents the software, APIs, libraries and development tools used in this proje
 - **GitHub**: Used for version control and collaboration on the project codebase.
 
 
-<!-- SECTION 7 -->
+<!-- SECTION 7
 ## Meeting Records & Decision Log
 
-Records of all meetings held during the project, including minutes, agendas, and a decision log of all major decisions taken during the project.
+Records of all meetings held during the project, including minutes, agendas, and a decision log of all major decisions taken during the project. -->
 
 
 <!-- SECTION 9 -->
@@ -108,8 +101,6 @@ Records of all meetings held during the project, including minutes, agendas, and
 Contains testing files for various frameworks and libraries that were considered for the project.
 
 AFrame and Blender were originally considered to develop the AR Exhibit however after various testing it was decided that three.js was a better library. 
-
-(why is it a better library?)
 
 <!-- SECTION 8 -->
 ## How to Use This Repository
