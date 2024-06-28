@@ -44,12 +44,13 @@ Contains the source code and configurations for the website with the integrated 
 The main folder is TAH_AR_Exhibit, which contains all necessary files to run the experience.
 
 TAH_AR_Exhibit/final:
-- **index.html**: The main HTML file for the AR exhibit.
-- **app.js**: The JavaScript file containing the logic for the AR exhibit.
 
-TAH_AR_Exhibit/shared:
-- **utils.js**: Utility functions used throughout the AR exhibit codebase.
+- **index.html**: The main HTML file for the AR exhibit.
 - **app.css**: The CSS file for styling the AR exhibit.
+- **ngoApp.js**: The JavaScript file containing the logic for the AR exhibit for members of relevant charities.
+- **commApp.js**: The JavaScript file containing the logic for the AR exhibit for potential commercial partners of the TAH (e.g. financial institutions, car rental and house rental businesses).
+- **utils.js**: Utility functions used throughout the codebase for the creation of scenes and loading of scene items.
+- **/assets**: Contains all assets such as 3D models, GIFs, images which need to be loaded into the scene 
 
 
 <!-- SECTION 6 -->
