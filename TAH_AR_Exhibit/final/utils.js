@@ -293,6 +293,20 @@ window.ngo_msg2.rotateY(3.14);
 
 console.log("zooweemama");
 
+class intro extends THREE.Object3D {
+  constructor() {
+    super();
+
+    window.instructions = textBox(instructions, 0.6);
+    window.instructions.rotateX(-1.57);
+    this.add(window.instructions.scene);
+
+
+    this.visible = false;
+  }
+}
+
+
 
 window.DemoUtils = {
   /**
@@ -304,31 +318,22 @@ window.DemoUtils = {
   createLitScene() {
     const scene = new THREE.Scene();
 
-    // The materials will render as a black mesh
-    // without lights in our scenes. Let's add an ambient light
-    // so our material can be visible, as well as a directional light
-    // for the shadow.
     const light = new THREE.AmbientLight(0xffffff, 1);
     const directionalLight = new THREE.DirectionalLight(0xffffff, 0.3);
     directionalLight.position.set(10, 15, 10);
 
-    // We want this light to cast shadow.
     directionalLight.castShadow = true;
 
-    // Make a large plane to receive our shadows
     const planeGeometry = new THREE.PlaneGeometry(2000, 2000);
-    // Rotate our plane to be parallel to the floor
     planeGeometry.rotateX(-Math.PI / 2);
 
-    // Create a mesh with a shadow material, resulting in a mesh
-    // that only renders shadows once we flip the `receiveShadow` property.
+
     const shadowMesh = new THREE.Mesh(planeGeometry, new THREE.ShadowMaterial({
       color: 0x111111,
       opacity: 0.2,
     }));
 
-    // Give it a name so we can reference it later, and set `receiveShadow`
-    // to true so that it can render our model's shadow.
+
     shadowMesh.name = 'shadowMesh';
     shadowMesh.receiveShadow = true;
     shadowMesh.position.y = 10000;

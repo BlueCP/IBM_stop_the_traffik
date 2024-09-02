@@ -41,8 +41,8 @@ class ngoApp {
       this.createXRCanvas();
       document.getElementById('landingPage').style.display = 'none';
 
-      // Load the model
-      await this.loadGLTFModel1('../assets/AR-Experience.glb');
+      // // Load the model
+      // await this.loadGLTFModel1('../assets/AR-Experience.glb');
 
 
       // With everything set up, start the app.
@@ -56,16 +56,16 @@ class ngoApp {
   /**
    * Load a GLTF model
    */
-  loadGLTFModel1 = async (path) => {
-    const loader = new THREE.GLTFLoader();
-    return new Promise((resolve, reject) => {
-      loader.load(path, (gltf) => {
-        this.glbModel = gltf.scene;
-        this.animations = gltf.animations;
-        resolve();
-      }, undefined, reject);
-    });
-  }
+  // loadGLTFModel1 = async (path) => {
+  //   const loader = new THREE.GLTFLoader();
+  //   return new Promise((resolve, reject) => {
+  //     loader.load(path, (gltf) => {
+  //       this.glbModel = gltf.scene;
+  //       this.animations = gltf.animations;
+  //       resolve();
+  //     }, undefined, reject);
+  //   });
+  // }
 
   // loadGLTFModel2 = async (path) => {
   //   const loader = new THREE.GLTFLoader();
@@ -116,23 +116,9 @@ class ngoApp {
     this.xrSession.addEventListener("select", this.onSelect);
   }
 
-  createGlobe() {
-    const globe = new ThreeGlobe()
-      .globeImageUrl('https://unpkg.com/three-globe@2.31.1/example/img/earth-night.jpg');
-
-    globe.showAtmosphere(false);
-    globe.scale.set(0.001,0.001,0.001);
-    globe.position.set(0.0, 0.5, 0.0);
-    const factor = 1;
-    globe.scale.x /= factor;
-    globe.scale.y /= factor;
-    globe.scale.z /= factor;
-    globe.globeMaterial.wireframe = true;
-    return globe;
-  }
 
   createClustered(){
-    const N = 300;
+    const N = 100;
     const gData = [...Array(N).keys()].map(() => ({
       lat: (Math.random() - 0.5) * 180,
       lng: (Math.random() - 0.5) * 360,
@@ -163,54 +149,63 @@ class ngoApp {
       weight: Math.random()
     }));
 
-    const globe = new ThreeGlobe()
-      .globeImageUrl('https://unpkg.com/three-globe@2.31.1/example/img/earth-day.jpg')
-
+    const globe_heat = new ThreeGlobe()
+      // .globeImageUrl('https://unpkg.com/three-globe@2.31.1/example/img/earth-day.jpg')
+      .globeImageUrl('//unpkg.com/three-globe/example/img/earth-day.jpg')
+      .bumpImageUrl('//unpkg.com/three-globe/example/img/earth-topology.png')
       .heatmapsData([gData])
       .heatmapPointLat('lat')
       .heatmapPointLng('lng')
       .heatmapPointWeight('weight')
-      .heatmapTopAltitude(0.3) // 0.7
+      .heatmapTopAltitude(0.1) // 0.7
       .heatmapsTransitionDuration(1000) // 3000
-      // .heatmapBandwidth(2);
+      .heatmapBandwidth(10);
 
-    globe.showAtmosphere(false);
+    globe_heat.showAtmosphere(false);
     // globe.scale.set(0.001,0.001,0.001);
-    globe.position.set(0.0, 0.5, 0.0);
-    const factor = 1;
-    globe.scale.x /= factor;
-    globe.scale.y /= factor;
-    globe.scale.z /= factor;
-    globe.globeMaterial.wireframe = false;
-    return globe;
+    globe_heat.position.set(0.0, 0.5, 0.0);
+    const heat_factor = 1;
+    globe_heat.scale.x /= heat_factor;
+    globe_heat.scale.y /= heat_factor;
+    globe_heat.scale.z /= heat_factor;
+    globe_heat.globeMaterial.wireframe = false;
+    return globe_heat;
 
-    // fetch('./ne_110m_admin_0_countries.geojson').then(res => res.json()).then(countries => {
-    //   const globe = new ThreeGlobe()
-    //     .globeImageUrl('https://unpkg.com/three-globe@2.31.1/example/img/earth-night.jpg')
+  }
 
-    //     .heatmapsData([gData])
-    //     .heatmapPointLat('lat')
-    //     .heatmapPointLng('lng')
-    //     .heatmapPointWeight('weight')
-    //     .heatmapTopAltitude(0.3) // 0.7
-    //     .heatmapsTransitionDuration(1000) // 3000
 
-    //     .hexPolygonsData(countries.features)
-    //     .hexPolygonResolution(3)
-    //     .hexPolygonMargin(0.3)
-    //     .hexPolygonUseDots(true)
-    //     .hexPolygonColor(() => `#${Math.round(Math.random() * Math.pow(2, 24)).toString(16).padStart(6, '0')}`);
+  createRoute(){
+        const N = 20;
 
-    //   globe.showAtmosphere(false);
-    //   globe.scale.set(0.001,0.001,0.001);
-    //   globe.position.set(0.0, 0.5, 0.0);
-    //   const factor = 1;
-    //   globe.scale.x /= factor;
-    //   globe.scale.y /= factor;
-    //   globe.scale.z /= factor;
-    //   globe.globeMaterial.wireframe = true;
-    //   return globe;
-    // })
+        const arcsData = [...Array(N).keys()].map(() => ({
+          startLat: (Math.random() - 0.5) * 180,
+          startLng: (Math.random() - 0.5) * 360,
+          endLat: (Math.random() - 0.5) * 180,
+          endLng: (Math.random() - 0.5) * 360,
+          color: ['red', 'white', 'blue', 'green'][Math.round(Math.random() * 3)]
+        }));
+    
+        const route = new ThreeGlobe()
+          .globeImageUrl('//unpkg.com/three-globe/example/img/earth-day.jpg')
+          .arcsData(arcsData)
+          .arcColor('color')
+          .arcDashLength(0.4)
+          .arcDashGap(4)
+          .arcDashInitialGap(() => Math.random() * 5)
+          .arcDashAnimateTime(1000);
+          
+          route.showAtmosphere(false);
+          // globe.scale.set(0.001,0.001,0.001);
+          route.position.set(0.0, 0.5, 0.0);
+          const factor = 1;
+          route.scale.x /= factor;
+          route.scale.y /= factor;
+          route.scale.z /= factor;
+          route.globeMaterial.wireframe = false;
+          return route;
+
+
+        
   }
 
   scene_insert(model, x, y, z) {
@@ -236,51 +231,60 @@ class ngoApp {
    * Add a model when the screen is tapped.
    */
   onSelect = () => {
-    if(this.count == 0){
-      window.bow = this.createGlobeHeatmap();
-      if (window.bow) {
-        console.log('material: ', window.bow.globeMaterial());
-        console.log('scale: ', window.bow.scale);
-        console.log('radius: ', window.bow.getGlobeRadius());
+  //   if(this.count == 0){
+  //     window.bow = this.createGlobeHeatmap();
+  //     if (window.bow) {
+  //       console.log('material: ', window.bow.globeMaterial());
+  //       console.log('scale: ', window.bow.scale);
+  //       console.log('radius: ', window.bow.getGlobeRadius());
   
-        this.scene_insert(window.bow, 0.0, 1.4, -500.0);
-      } else {
-        console.log('window.bow is not defined');
-      }
+  //       this.scene_insert(window.bow, 0.0, 1.4, -500.0);
+  //     } else {
+  //       console.log('window.bow is not defined');
+  //     }
       
-      window.oink = this.createClustered();
-      if (window.oink) {
-        console.log('material: ', window.oink.globeMaterial());
-        console.log('scale: ', window.oink.scale);
-        console.log('radius: ', window.oink.getGlobeRadius());
+  //     window.oink = this.createClustered();
+  //     if (window.oink) {
+  //       console.log('material: ', window.oink.globeMaterial());
+  //       console.log('scale: ', window.oink.scale);
+  //       console.log('radius: ', window.oink.getGlobeRadius());
   
-        this.scene_insert(window.oink, 500.0, 1.4, 0.0);
-      } else {
-        console.log('window.oink is not defined');
-      }
+  //       this.scene_insert(window.oink, 500.0, 1.4, 0.0);
+  //     } else {
+  //       console.log('window.oink is not defined');
+  //     }
   
+  //     window.meowroute = this.createRoute();
+  //     if (window.meowroute) {
+  //       console.log('material: ', window.meowroute.globeMaterial());
+  //       console.log('scale: ', window.meowroute.scale);
+  //       console.log('radius: ', window.meowroute.getGlobeRadius());
   
+  //       this.scene_insert(window.meowroute, -500.0, 1.4, 0.0);
+  //     } else {
+  //       console.log('window.meowroute is not defined');
+  //     }
       
-      // this.scene_insert(this.objects[this.count], 0.0, 1.8, 0.0);
-      this.scene_insert(window.welcome, 0.0, 1.5, -0.2);
+  //     // this.scene_insert(this.objects[this.count], 0.0, 1.8, 0.0);
+  //     this.scene_insert(window.welcome, 0.0, 1.5, -0.2);
   
-      this.scene_insert(window.heatmap1, -0.5, 1.5, -1.2);
-      this.scene_insert(window.heatmap2, 0.5, 1.5, -1.2);
+  //     this.scene_insert(window.heatmap1, -0.5, 1.5, -1.2);
+  //     this.scene_insert(window.heatmap2, 0.5, 1.5, -1.2);
   
-      this.scene_insert(window.routemap1, -1.5, 1.8, 0.25);
-      this.scene_insert(window.routemap2, -1.5, 1.1, 0.25);
+  //     this.scene_insert(window.routemap1, -1.5, 1.8, 0.25);
+  //     this.scene_insert(window.routemap2, -1.5, 1.1, 0.25);
 
       
-      this.scene_insert(window.example1, -1.5, 1.8, -0.25);
-      this.scene_insert(window.example2, -1.5, 1.1, -0.25);
+  //     this.scene_insert(window.example1, -1.5, 1.8, -0.25);
+  //     this.scene_insert(window.example2, -1.5, 1.1, -0.25);
   
-      this.scene_insert(window.stats, -0.25, 1.5, 1.5);
+  //     this.scene_insert(window.stats, -0.25, 1.5, 1.5);
   
-      this.scene_insert(window.tech_msg1, -0.25, 1.1, 1.5);
+  //     this.scene_insert(window.tech_msg1, -0.25, 1.1, 1.5);
 
-      this.scene_insert(window.ngo_msg1,0.25, 1.5,1.5 );
-      this.scene_insert(window.ngo_msg2,0.25, 1.1,1.5);
-      this.scene_insert(window.instructions, 0.0, 0.0, 0.0);
+  //     this.scene_insert(window.ngo_msg1,0.25, 1.5,1.5 );
+  //     this.scene_insert(window.ngo_msg2,0.25, 1.1,1.5);
+  //     this.scene_insert(window.instructions, 0.0, 0.0, 0.0);
 
 
   
@@ -288,63 +292,133 @@ class ngoApp {
       
   
   
+  // //this one mate
+  //     // if (this.glbModel) {
+  //     //   const clone = this.glbModel.clone();
+  //     //   clone.position.copy(this.reticle.position).add(new THREE.Vector3(-1.5, 1.45, 0.0));
+  //     //   clone.scale.set(clone.scale.x / 5, clone.scale.y / 5, clone.scale.z / 5);
+  //     //   clone.rotateY(0.5);
+  //     //   this.scene.add(clone);
   
-      if (this.glbModel) {
-        const clone = this.glbModel.clone();
-        clone.position.copy(this.reticle.position).add(new THREE.Vector3(-1.5, 1.45, 0.0));
-        clone.scale.set(clone.scale.x / 5, clone.scale.y / 5, clone.scale.z / 5);
-        clone.rotateY(0.5);
-        this.scene.add(clone);
+  //     //   // Create an AnimationMixer and play the animation
+  //     //   this.mixer = new THREE.AnimationMixer(clone);
+  //     //   this.playAnimation('ArrowAction');
+  //     // } else {
+  //     //   console.log('Model not loaded yet');
+  //     // }
   
-        // Create an AnimationMixer and play the animation
-        this.mixer = new THREE.AnimationMixer(clone);
-        this.playAnimation('ArrowAction');
-      } else {
-        console.log('Model not loaded yet');
-      }
+
+  //     // if (this.glbModel) {
+  //     //   const clone = this.glbModel.clone();
+  //     //   clone.position.copy(this.reticle.position).add(new THREE.Vector3(0.0, 1.5, -1.0));
+  //     //   clone.scale.set(clone.scale.x / 2, clone.scale.y / 2, clone.scale.z / 2);
+  //     //   this.scene.add(clone);
   
-      // if (this.glbModel) {
-      //   const clone = this.glbModel.clone();
-      //   clone.position.copy(this.reticle.position).add(new THREE.Vector3(0.0, 1.5, -1.0));
-      //   clone.scale.set(clone.scale.x / 2, clone.scale.y / 2, clone.scale.z / 2);
-      //   this.scene.add(clone);
+  //     //   // Create an AnimationMixer and play the animation
+  //     //   this.mixer = new THREE.AnimationMixer(clone);
+  //     //   this.playAnimation('ArrowAction');
+  //     // } else {
+  //     //   console.log('Model not loaded yet');
+  //     // }
   
-      //   // Create an AnimationMixer and play the animation
-      //   this.mixer = new THREE.AnimationMixer(clone);
-      //   this.playAnimation('ArrowAction');
-      // } else {
-      //   console.log('Model not loaded yet');
-      // }
+  //     this.scene.traverse(function (node) {
+  //       console.log('Name: ', node.name, ' Type: ', node.type);
+  //     });
   
-      this.scene.traverse(function (node) {
-        console.log('Name: ', node.name, ' Type: ', node.type);
-      });
+  //     // Check if the globe's material is transparent
+  //     if (window.bow) {
+  //       console.log(window.bow.showAtmosphere()); // Should be false
+  //     }
   
-      // Check if the globe's material is transparent
-      if (window.bow) {
-        console.log(window.bow.showAtmosphere()); // Should be false
-      }
-  
-      // Check the scene background
-      // console.log(this.scene.background); // Should be null for transparency
-      this.count += 1;
+  //     // Check the scene background
+  //     // console.log(this.scene.background); // Should be null for transparency
+  //     this.count += 1;
+  //   }
+
+    switch(this.count){
+      case 0:
+        this.scene_insert(window.welcome, 0.0, 1.5, -0.2);
+        break;
+
+      case 1:
+        window.bow = this.createGlobeHeatmap();
+        if (window.bow) {
+          console.log('material: ', window.bow.globeMaterial());
+          console.log('scale: ', window.bow.scale);
+          console.log('radius: ', window.bow.getGlobeRadius());
+    
+          this.scene_insert(window.bow, 0.0, 1.4, -500.0);
+        } else {
+          console.log('window.bow is not defined');
+        }
+
+        this.scene_insert(window.heatmap1, -0.5, 1.5, -1.2);
+        this.scene_insert(window.heatmap2, 0.5, 1.5, -1.2);
+
+        break;
+
+      case 2:
+        window.oink = this.createClustered();
+        if (window.oink) {
+          console.log('material: ', window.oink.globeMaterial());
+          console.log('scale: ', window.oink.scale);
+          console.log('radius: ', window.oink.getGlobeRadius());
+    
+          this.scene_insert(window.oink, 500.0, 1.4, 0.0);
+        } else {
+          console.log('window.oink is not defined');
+        }
+
+
+        break;
+
+      case 3:
+        window.meowroute = this.createRoute();
+        if (window.meowroute) {
+          console.log('material: ', window.meowroute.globeMaterial());
+          console.log('scale: ', window.meowroute.scale);
+          console.log('radius: ', window.meowroute.getGlobeRadius());
+    
+          this.scene_insert(window.meowroute, -500.0, 1.4, 0.0);
+        } else {
+          console.log('window.meowroute is not defined');
+        }
+
+        this.scene_insert(window.example1, -1.5, 1.8, -0.25);
+        this.scene_insert(window.example2, -1.5, 1.1, -0.25);
+        this.scene_insert(window.routemap1, -1.5, 1.8, 0.25);
+        this.scene_insert(window.routemap2, -1.5, 1.1, 0.25);
+        break;
+
+      case 4:
+        this.scene_insert(window.stats, -0.25, 1.5, 1.5);
+        this.scene_insert(window.ngo_msg1,0.25, 1.5,1.5 );
+        this.scene_insert(window.ngo_msg2,0.25, 1.1,1.5);
+        this.scene_insert(window.tech_msg1, -0.25, 1.1, 1.5);
+
+        break;
+
+      case 5:
+        break;
+
     }
+    this.count += 1
   }
 
   /**
    * Play a specified animation from the loaded GLB model
    */
-  playAnimation = (animationName) => {
-    if (this.mixer && this.animations) {
-      const clip = this.animations.find(clip => clip.name === animationName);
-      if (clip) {
-        const action = this.mixer.clipAction(clip);
-        action.reset().play();
-      } else {
-        console.log(`Animation ${animationName} not found`);
-      }
-    }
-  }
+  // playAnimation = (animationName) => {
+  //   if (this.mixer && this.animations) {
+  //     const clip = this.animations.find(clip => clip.name === animationName);
+  //     if (clip) {
+  //       const action = this.mixer.clipAction(clip);
+  //       action.reset().play();
+  //     } else {
+  //       console.log(`Animation ${animationName} not found`);
+  //     }
+  //   }
+  // }
 
   /**
    * Called on the XRSession's requestAnimationFrame.
@@ -385,16 +459,27 @@ class ngoApp {
       if (hitTestResults.length > 0) {
         const hitPose = hitTestResults[0].getPose(this.localReferenceSpace);
 
-        // Update the reticle position
-        if(this.count < 1){
-          this.reticle.visible = true;
-          this.reticle.position.set(hitPose.transform.position.x, hitPose.transform.position.y, hitPose.transform.position.z)
-          this.reticle.updateMatrixWorld(true);
-        }
-        else{
-          this.reticle.visible = false;
+        // // Update the reticle position
+        // if(this.count < 1){
+        //   this.reticle.visible = true;
+        //   this.reticle.position.set(hitPose.transform.position.x, hitPose.transform.position.y, hitPose.transform.position.z)
+        //   this.reticle.updateMatrixWorld(true);
+        // }
+        // else{
+        //   this.reticle.visible = false;
 
-        }
+        // }
+
+        // Update the reticle position
+        this.reticle.visible = true;
+        this.reticle.position.set(hitPose.transform.position.x, hitPose.transform.position.y, hitPose.transform.position.z);
+        this.reticle.updateMatrixWorld(true);
+
+        this.intro.visible = true;
+        this.intro.position.set(hitPose.transform.position.x, hitPose.transform.position.y, hitPose.transform.position.z);
+        this.intro.updateMatrixWorld(true);
+
+
 
       }
 
@@ -403,6 +488,10 @@ class ngoApp {
         const delta = this.clock.getDelta();
         this.mixer.update(delta);
       }
+
+      window.bow.rotateY(-0.01);
+      window.oink.rotateY(-0.01);
+
 
       // Render the scene with THREE.WebGLRenderer.
       this.renderer.render(this.scene, this.camera)
@@ -428,8 +517,14 @@ class ngoApp {
 
     // Initialize our demo scene.
     this.scene = DemoUtils.createLitScene();
+
     this.reticle = new Reticle();
     this.scene.add(this.reticle);
+
+    this.intro = new intro();
+    this.scene.add(this.intro);
+
+
 
     // const light = new THREE.AmbientLight(0xffffff, 100);
     // this.scene.add(light);
